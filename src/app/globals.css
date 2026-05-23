@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Fallback stacks; next/font overrides these via a class on <html>. */
+    --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+      "Liberation Mono", monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-base text-ink antialiased;
+    font-family: var(--font-sans);
+    /* Prevent any stray horizontal scrolling from glow/abolute elements. */
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Offset in-page anchors so they clear the fixed header. */
+  section[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  ::selection {
+    background: rgba(124, 139, 255, 0.3);
+    color: #fff;
+  }
+
+  /* Subtle, on-brand scrollbar (WebKit). */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #06070d;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    border: 2px solid #06070d;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+@layer components {
+  /* Animated "data flow" along an active constellation edge. */
+  .constellation-flow {
+    stroke-dasharray: 3 7;
+    animation: dashmove 1.1s linear infinite;
+  }
+  @keyframes dashmove {
+    to {
+      stroke-dashoffset: -20;
+    }
+  }
+}
+
+/* Respect users who prefer reduced motion: kill non-essential animation. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
