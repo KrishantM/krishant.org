@@ -19,7 +19,7 @@ interface LinkButtonProps extends BaseProps {
 }
 
 const base =
-  "group inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-indigo/70 focus-visible:ring-offset-2 focus-visible:ring-offset-base disabled:opacity-50";
+  "group inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-tight transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-base disabled:opacity-50";
 
 const sizes: Record<Size, string> = {
   md: "px-5 py-2.5 text-sm",
@@ -27,10 +27,9 @@ const sizes: Record<Size, string> = {
 };
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-ink text-base-900 hover:bg-white hover:shadow-glow",
+  primary: "bg-ink text-base-900 hover:-translate-y-0.5 hover:shadow-glow",
   secondary:
-    "border border-line bg-white/[0.03] text-ink backdrop-blur hover:border-white/25 hover:bg-white/[0.06]",
+    "border border-line bg-surface/[0.04] text-ink hover:border-ink/25 hover:bg-surface/[0.08]",
   ghost: "text-ink-muted hover:text-ink",
 };
 

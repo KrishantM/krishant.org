@@ -9,18 +9,17 @@ export function cn(...inputs: Array<string | false | null | undefined>): string 
 }
 
 /**
- * Accent hex values — the JS-side mirror of the `accent.*` Tailwind colours.
- * Needed where Tailwind classes can't reach: SVG strokes, inline gradients,
- * and Framer Motion style props in the constellation.
+ * Amber-honey accent hex values — the JS-side source for SVG strokes, inline
+ * gradients, and node glows. A warm, harmonious family tuned to read on both
+ * the espresso-dark and paper-light themes.
  */
 export const accentHex: Record<AccentKey, string> = {
-  cyan: "#3ce6d6",
-  indigo: "#7c8bff",
-  violet: "#a78bff",
-  emerald: "#34e0a1",
   amber: "#ffb454",
-  sky: "#5cc6ff",
-  rose: "#ff7eb6",
+  honey: "#f6c453",
+  orange: "#ff9d3d",
+  caramel: "#e08a3a",
+  gold: "#e0a92e",
+  copper: "#c9742e",
 };
 
 export function getAccentHex(accent: AccentKey): string {

@@ -50,18 +50,31 @@ It is **NOT**, and must never become:
 ### Tone & content
 
 - Keep copy **concise, ambitious, and premium**. Short, sharp lines. No walls of
-  text, no buzzword soup, no fake hype, no founder clichés, no résumé phrasing.
+  text, no buzzword soup, no fake urgency, no founder clichés, no résumé phrasing.
 - Don't over-explain the site. A degree of restraint and mystery is intentional.
 - Credentials are a **credibility layer**, not the headline. Never let them turn
   the site into LinkedIn or a certification badge wall.
 
 ### Design & code quality
 
-- Preserve the **dark, cinematic, constellation-driven** aesthetic
-  (see `DESIGN_GUIDELINES.md`).
-- Reuse the shared primitives: `Section`, `Card`, `Badge`, `Button`, `Reveal`.
-- Keep animation in the `Reveal` primitive and CSS; **always** respect
-  `prefers-reduced-motion`.
+- Preserve the **warm, cinematic, constellation-driven** aesthetic across **both
+  themes** (warm-dark default + warm-light). See `DESIGN_GUIDELINES.md`.
+- **Theme via tokens, never raw hex** in components: `base`, `surface`, `ink*`,
+  `line`, `accent`, `accent-gold` (CSS vars in `globals.css`). Overlays use
+  `surface/[α]`; stronger borders use `ink/[α]`. If you add a colour, define it
+  in **both** theme blocks. The signature accent is **amber-honey** (amber
+  `#FFB454` + honey `#F6C453`). Amber-honey accent keys: `amber, honey, orange,
+  caramel, gold, copper`. Don't reintroduce the old cold (indigo/cyan) palette.
+- Type tokens: `font-display` (Fraunces), `font-hand` (Caveat, the handwriting
+  voice), `font-mono` (codes only), default sans (Inter). Don't add more faces.
+- Voice is **first-person and warm** — like Krishant talking, kept tight.
+- Reuse the shared primitives: `Section`, `Card`, `Badge`, `Button`, `Reveal`,
+  `Signature`, `ThemeToggle`. The hero is an interactive AI-style "ask" console
+  (`AskConsole`) whose answers come from `lib/assistant.ts`, built from the
+  content files — keep it data-driven, never hardcode venture/credential facts.
+- Keep animation in `Reveal` + the draw-on strokes + CSS; **always** respect
+  `prefers-reduced-motion`. Never break the no-flash theme bootstrap in
+  `layout.tsx`.
 - Maintain accessibility: semantic HTML, keyboard-reachable controls, aria-labels
   where needed, never colour-only meaning, no nested anchors (use the
   stretched-link pattern).

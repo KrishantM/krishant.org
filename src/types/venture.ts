@@ -5,15 +5,14 @@
  * ("Ventures"), and the section titles all speak the same language.
  */
 
-/** Accent keys map to the `accent.*` colours defined in tailwind.config.ts. */
+/** Amber-honey accent keys — resolved to hex in src/lib/utils.ts (accentHex). */
 export type AccentKey =
-  | "cyan"
-  | "indigo"
-  | "violet"
-  | "emerald"
   | "amber"
-  | "sky"
-  | "rose";
+  | "honey"
+  | "orange"
+  | "caramel"
+  | "gold"
+  | "copper";
 
 export type VentureStatus = "Active" | "Building" | "Exploring";
 

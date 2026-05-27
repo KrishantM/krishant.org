@@ -11,6 +11,7 @@ import { site } from "@/content/site";
 import { getAccentHex } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { Panel } from "@/components/layout/Panel";
 
 interface PageProps {
   params: { slug: string };
@@ -28,7 +29,7 @@ export function generateMetadata({ params }: PageProps): Metadata {
     title: venture.name,
     description: venture.description,
     openGraph: {
-      title: `${venture.name} — ${site.name}`,
+      title: `${venture.name} · ${site.name}`,
       description: venture.description,
     },
   };
@@ -41,8 +42,7 @@ export default function VenturePage({ params }: PageProps) {
   const accent = getAccentHex(venture.accent);
   const hasExternal = Boolean(venture.externalUrl);
 
-  // Related ventures: children if this is a parent, else siblings under the
-  // same parent, else other top-level ventures.
+  // Related: children if this is a parent, else siblings under the same parent.
   const children = venturesByParent(venture.slug);
   const parent = venture.parent ? getVenture(venture.parent) : null;
   const related =
@@ -55,8 +55,31 @@ export default function VenturePage({ params }: PageProps) {
             v.hasInternalPage,
         );
 
+  const eyebrow = (
+    <div className="flex flex-wrap items-center gap-3">
+      <Badge accent={accent} dot>
+        {venture.status}
+      </Badge>
+      {parent && (
+        <Link href={`/ventures/${parent.slug}`}>
+          <Badge className="transition-colors hover:border-ink/25">
+            ↳ Part of {parent.name}
+          </Badge>
+        </Link>
+      )}
+      <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-faint">
+        {venture.category}
+      </span>
+    </div>
+  );
+
   return (
-    <article className="relative mx-auto max-w-shell px-5 pb-24 pt-28 sm:px-8 sm:pb-32 sm:pt-36">
+    <Panel
+      title={venture.name}
+      description={venture.summary}
+      eyebrow={eyebrow}
+      closeHref="/ventures"
+    >
       {/* Accent glow */}
       <span
         aria-hidden
@@ -64,56 +87,16 @@ export default function VenturePage({ params }: PageProps) {
         style={{ background: accent }}
       />
 
-      {/* Breadcrumb */}
-      <div className="relative mb-10 flex items-center gap-2 text-sm text-ink-faint">
-        <Link href="/" className="transition-colors hover:text-ink">
-          {site.name}
-        </Link>
-        <span aria-hidden>/</span>
-        <Link href="/#ventures" className="transition-colors hover:text-ink">
-          Ventures
-        </Link>
-        <span aria-hidden>/</span>
-        <span className="text-ink-muted">{venture.name}</span>
-      </div>
-
-      {/* Header */}
-      <header className="relative max-w-3xl">
-        <div className="flex flex-wrap items-center gap-3">
-          <Badge accent={accent} dot>
-            {venture.status}
-          </Badge>
-          {parent && (
-            <Link href={`/ventures/${parent.slug}`}>
-              <Badge className="transition-colors hover:border-white/25">
-                ↳ Part of {parent.name}
-              </Badge>
-            </Link>
-          )}
+      {hasExternal && (
+        <div className="-mt-4 mb-12">
+          <Button href={venture.externalUrl!} external variant="primary" size="lg">
+            Visit {venture.name}
+            <span aria-hidden>↗</span>
+          </Button>
         </div>
+      )}
 
-        <h1 className="mt-6 text-5xl font-semibold tracking-tightest text-ink sm:text-6xl">
-          {venture.name}
-        </h1>
-        <p className="mt-3 font-mono text-sm uppercase tracking-[0.16em] text-ink-faint">
-          {venture.category}
-        </p>
-        <p className="mt-7 text-balance text-xl leading-snug text-ink-muted sm:text-2xl">
-          {venture.summary}
-        </p>
-
-        {hasExternal && (
-          <div className="mt-8">
-            <Button href={venture.externalUrl!} external variant="primary" size="lg">
-              Visit {venture.name}
-              <span aria-hidden>↗</span>
-            </Button>
-          </div>
-        )}
-      </header>
-
-      {/* Body */}
-      <div className="relative mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12">
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-ink-faint">
             Overview
@@ -129,7 +112,7 @@ export default function VenturePage({ params }: PageProps) {
         </div>
 
         <aside className="lg:col-span-5">
-          <div className="rounded-xl2 border border-line bg-white/[0.025] p-6 backdrop-blur-sm sm:p-7">
+          <div className="rounded-xl2 border border-line bg-surface/[0.04] p-6 sm:p-7">
             <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-ink-faint">
               Focus areas
             </h2>
@@ -151,7 +134,7 @@ export default function VenturePage({ params }: PageProps) {
                 {venture.tags.map((tag) => (
                   <li
                     key={tag}
-                    className="rounded-full border border-line bg-white/[0.02] px-2.5 py-1 text-xs text-ink-faint"
+                    className="rounded-full border border-line bg-surface/[0.03] px-2.5 py-1 text-xs text-ink-faint"
                   >
                     {tag}
                   </li>
@@ -162,9 +145,8 @@ export default function VenturePage({ params }: PageProps) {
         </aside>
       </div>
 
-      {/* Related */}
       {related.length > 0 && (
-        <section className="relative mt-20 border-t border-line pt-12">
+        <section className="mt-20 border-t border-line pt-12">
           <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-ink-faint">
             {children.length > 0 ? "Connected brands" : "Related ventures"}
           </h2>
@@ -175,7 +157,7 @@ export default function VenturePage({ params }: PageProps) {
                 <Link
                   key={rel.slug}
                   href={`/ventures/${rel.slug}`}
-                  className="group flex items-center justify-between gap-3 rounded-xl2 border border-line bg-white/[0.025] p-5 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-white/20"
+                  className="group flex items-center justify-between gap-3 rounded-xl2 border border-line bg-surface/[0.04] p-5 transition-all hover:-translate-y-0.5 hover:border-ink/20"
                 >
                   <div>
                     <div className="flex items-center gap-2">
@@ -199,16 +181,6 @@ export default function VenturePage({ params }: PageProps) {
           </div>
         </section>
       )}
-
-      {/* Back */}
-      <div className="relative mt-16">
-        <Link
-          href="/#ventures"
-          className="text-sm text-ink-muted transition-colors hover:text-ink"
-        >
-          ← Back to all ventures
-        </Link>
-      </div>
-    </article>
+    </Panel>
   );
 }

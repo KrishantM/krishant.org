@@ -63,7 +63,7 @@ Edit **`src/content/ventures.ts`** and add one object to the `ventures` array:
   role: "Founder / Builder",
   focusAreas: ["Area one", "Area two"],
   tags: ["Tag"],
-  accent: "cyan",                     // see accent keys below
+  accent: "amber",                    // see accent keys below
   featured: true,
   parent: null,                       // or a parent slug e.g. "creatorhq"
   hasInternalPage: true,             // generates /ventures/new-venture
@@ -74,8 +74,8 @@ That single object flows into the **grid**, the **constellation**, related
 sections, and (if `hasInternalPage` is true) a detail page at
 `/ventures/<slug>`.
 
-**Accent keys** (defined in `tailwind.config.ts` + `src/lib/utils.ts`):
-`cyan`, `indigo`, `violet`, `emerald`, `amber`, `sky`, `rose`.
+**Accent keys** (amber-honey palette, defined in `src/lib/utils.ts` `accentHex`):
+`amber`, `honey`, `orange`, `caramel`, `gold`, `copper`.
 
 > If you add a venture to the constellation map, also give it a position in the
 > `layout` map inside `src/components/ventures/VentureConstellation.tsx` (these
@@ -103,8 +103,27 @@ Do **not** invent issue dates or credential URLs. Leave them omitted / `null`.
 ### Edit site-wide copy & links
 
 Edit **`src/content/site.ts`** — identity, navigation, hero copy, section
-headings, the "Who is Krishant?" copy, contact links, and footer text all live
-there.
+headings, the "Who is Krishant?" copy, the **Currently** snapshot, contact
+links, location, and footer text all live there. The voice is first-person and
+warm by design.
+
+## Personality, theming & type
+
+- **Two themes.** Warm-dark (default) and warm-light/paper, toggled in the nav
+  and remembered via `localStorage`. Colours are CSS variables in
+  `globals.css` (`:root` + `[data-theme="light"]`) mapped to Tailwind tokens
+  (`base`, `surface`, `ink`, `line`, `accent`, `accent-gold`). Add a colour by
+  setting its variable in both theme blocks — components reference tokens, never
+  raw hex.
+- **Signature accent:** amber (`#FFB454`) with a honey highlight (`#F6C453`).
+- **Type:** Fraunces (display/headings), Inter (body/UI), Caveat (handwritten
+  accents — the signature, eyebrows-as-marker, the Currently label, sign-off),
+  JetBrains Mono (codes + technical bits). All loaded via `next/font`.
+- **Motif:** the hand-drawn `Signature` (logo, draws itself on) carries the
+  personality. Keep it reduced-motion friendly.
+- **Hero:** an interactive AI-style "ask" console (`AskConsole` +
+  `lib/assistant.ts`) is the landing interaction; prompts resolve to curated,
+  data-driven answers with links and scroll actions.
 
 ---
 
@@ -121,8 +140,8 @@ src/
     ventures/[slug]/page.tsx# data-driven venture detail pages
   components/
     layout/                 # Header, Footer, Section, Backdrop
-    hero/                   # Hero, HeroBackground
-    ventures/               # VentureGrid, VentureCard, VentureConstellation, CreatorHQMap
+    hero/                   # Hero, HeroBackground, AskConsole (the ask console)
+    ventures/               # FlagshipVentures, VentureConstellation, CreatorHQMap
     about/                  # WhoIsKrishant
     credentials/            # CredentialsSection, PwCBlock, CertificationsBlock
     contact/                # ContactCTA

@@ -21,10 +21,10 @@ export function Backdrop() {
         }}
       />
 
-      {/* Drifting glow fields. */}
-      <div className="absolute -left-32 -top-40 h-[34rem] w-[34rem] animate-drift rounded-full bg-accent-indigo/20 blur-[140px]" />
-      <div className="absolute -right-32 top-24 h-[30rem] w-[30rem] animate-drift rounded-full bg-accent-violet/15 blur-[150px] [animation-delay:-3s]" />
-      <div className="absolute bottom-0 left-1/3 h-[26rem] w-[26rem] animate-drift rounded-full bg-accent-cyan/10 blur-[150px] [animation-delay:-6s]" />
+      {/* Static warm glow fields — painted once (no infinite drift animation),
+          so they don't force continuous repaints of large blurred layers. */}
+      <div className="absolute -left-32 -top-40 h-[32rem] w-[32rem] rounded-full bg-accent/20 blur-[110px]" />
+      <div className="absolute -right-32 top-24 h-[28rem] w-[28rem] rounded-full bg-accent-gold/15 blur-[110px]" />
 
       {/* Top-down vignette to seat content. */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-base/40 to-base" />

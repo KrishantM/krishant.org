@@ -3,9 +3,13 @@ import type { Venture } from "@/types/venture";
 /**
  * THE single source of truth for ventures.
  *
- * To add a venture: append one object below. Everything — the grid, the
- * constellation, the CreatorHQ map, and the detail pages — reads from here.
+ * To add a venture: append one object below. Everything (the showcase, the
+ * constellation, the CreatorHQ map, and the detail pages) reads from here.
  * Never hardcode venture content into components.
+ *
+ * Emphasis: Gradual and Hiko are the flagship ventures (`featured: true`).
+ * CreatorHQ is an umbrella / operating layer, and TrenTwinsHQ + LexxLittleHQ
+ * sit under it (`parent: "creatorhq"`).
  */
 export const ventures: Venture[] = [
   {
@@ -17,7 +21,7 @@ export const ventures: Venture[] = [
     status: "Active",
     summary: "AI-assisted learning and career development.",
     description:
-      "Gradual explores how AI can support learning, development, and career growth through more adaptive, personalised systems — meeting people where they are and moving them forward.",
+      "Gradual explores how AI can support learning, development, and career growth through more adaptive, personalised systems that meet people where they are and move them forward.",
     role: "Founder / Builder",
     focusAreas: [
       "AI-enabled learning",
@@ -27,7 +31,7 @@ export const ventures: Venture[] = [
       "Human potential",
     ],
     tags: ["AI", "Learning", "Careers", "Product"],
-    accent: "emerald",
+    accent: "honey",
     featured: true,
     parent: null,
     hasInternalPage: true,
@@ -41,7 +45,7 @@ export const ventures: Venture[] = [
     status: "Active",
     summary: "Local discovery and social coordination.",
     description:
-      "Hiko explores how people discover what's happening around them and coordinate social experiences in a more intuitive way — turning local activity into something effortless to find and act on.",
+      "Hiko explores how people discover what's happening around them and coordinate social experiences in a more intuitive way, turning local activity into something effortless to find and act on.",
     role: "Founder / Builder",
     focusAreas: [
       "Local discovery",
@@ -51,7 +55,7 @@ export const ventures: Venture[] = [
       "Experience design",
     ],
     tags: ["Consumer", "Local", "Social", "Community"],
-    accent: "amber",
+    accent: "orange",
     featured: true,
     parent: null,
     hasInternalPage: true,
@@ -65,7 +69,7 @@ export const ventures: Venture[] = [
     status: "Active",
     summary: "Infrastructure and operating systems for creator-led brands.",
     description:
-      "CreatorHQ is the operating layer for creator-led brands, content systems, audience growth, and digital infrastructure — the connective tissue beneath individual creator brands.",
+      "CreatorHQ is the operating layer for creator-led brands: content systems, audience growth, and digital infrastructure. It's the connective tissue beneath individual creator brands like TrenTwinsHQ and LexxLittleHQ.",
     role: "Builder / Operator",
     focusAreas: [
       "Creator infrastructure",
@@ -75,8 +79,8 @@ export const ventures: Venture[] = [
       "Digital operating systems",
     ],
     tags: ["Creator", "Infrastructure", "Media", "Operations"],
-    accent: "violet",
-    featured: true,
+    accent: "amber",
+    featured: false,
     parent: null,
     hasInternalPage: true,
   },
@@ -88,9 +92,9 @@ export const ventures: Venture[] = [
     category: "Creator-Led Media / Community",
     status: "Active",
     summary:
-      "A creator-led media and community brand connected to the CreatorHQ ecosystem.",
+      "A creator-led media and community brand within the CreatorHQ ecosystem.",
     description:
-      "TrenTwinsHQ is a creator-led media and community brand built on the CreatorHQ operating layer — content systems, audience engagement, and media infrastructure working together.",
+      "TrenTwinsHQ is a creator-led media and community brand built on the CreatorHQ operating layer, bringing content systems, audience engagement, and media infrastructure together.",
     role: "Builder / Operator",
     focusAreas: [
       "Creator-led brand",
@@ -100,7 +104,7 @@ export const ventures: Venture[] = [
       "Media infrastructure",
     ],
     tags: ["Creator", "Media", "Community"],
-    accent: "sky",
+    accent: "caramel",
     featured: false,
     parent: "creatorhq",
     hasInternalPage: true,
@@ -113,9 +117,9 @@ export const ventures: Venture[] = [
     category: "Creator-Led Media / Community",
     status: "Active",
     summary:
-      "A creator-led media and community brand connected to the CreatorHQ ecosystem.",
+      "A creator-led media and community brand within the CreatorHQ ecosystem.",
     description:
-      "LexxLittleHQ is a creator-led media and community brand built on the CreatorHQ operating layer — content systems, audience engagement, and media infrastructure working together.",
+      "LexxLittleHQ is a creator-led media and community brand built on the CreatorHQ operating layer, bringing content systems, audience engagement, and media infrastructure together.",
     role: "Builder / Operator",
     focusAreas: [
       "Creator-led brand",
@@ -125,7 +129,7 @@ export const ventures: Venture[] = [
       "Media infrastructure",
     ],
     tags: ["Creator", "Media", "Community"],
-    accent: "rose",
+    accent: "gold",
     featured: false,
     parent: "creatorhq",
     hasInternalPage: true,
@@ -133,10 +137,13 @@ export const ventures: Venture[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* Derived helpers — keep selection logic out of components.           */
+/* Derived helpers. Keep selection logic out of components.            */
 /* ------------------------------------------------------------------ */
 
-/** Top-level ventures (no parent) — what the grid + constellation lead with. */
+/** Flagship ventures (Gradual, Hiko) that lead the Ventures section. */
+export const featuredVentures = ventures.filter((v) => v.featured);
+
+/** Top-level ventures (no parent). */
 export const topLevelVentures = ventures.filter((v) => v.parent === null);
 
 /** Ventures that belong to a given parent slug. */

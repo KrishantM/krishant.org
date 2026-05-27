@@ -20,8 +20,8 @@ export default function OpengraphImage() {
           justifyContent: "space-between",
           padding: "80px",
           background:
-            "radial-gradient(1000px 500px at 30% 0%, #15182b, #06070d 60%)",
-          color: "#f5f7fb",
+            "radial-gradient(1000px 520px at 28% 0%, #2c1812, #14100c 62%)",
+          color: "#f3ead9",
           fontFamily: "sans-serif",
         }}
       >
@@ -31,7 +31,7 @@ export default function OpengraphImage() {
               width: 14,
               height: 14,
               borderRadius: 999,
-              background: "#34e0a1",
+              background: "#ffb454",
             }}
           />
           <div
@@ -39,7 +39,7 @@ export default function OpengraphImage() {
               fontSize: 26,
               letterSpacing: 6,
               textTransform: "uppercase",
-              color: "#9aa3b8",
+              color: "#b8a994",
             }}
           >
             krishant.org
@@ -47,26 +47,29 @@ export default function OpengraphImage() {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ fontSize: 44, color: "#ffc06a", marginBottom: 8 }}>
+            Hey, I&apos;m
+          </div>
           <div style={{ fontSize: 96, fontWeight: 700, letterSpacing: -3 }}>
             {site.fullName}
           </div>
           <div
             style={{
               marginTop: 24,
-              fontSize: 36,
+              fontSize: 34,
               lineHeight: 1.3,
-              color: "#9aa3b8",
-              maxWidth: 900,
+              color: "#b8a994",
+              maxWidth: 920,
             }}
           >
-            Building at the edge of software, AI, cloud, and digital systems.
+            I build software, systems, and a few ventures I genuinely believe in.
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: 40, fontSize: 24, color: "#5b6275" }}>
+        <div style={{ display: "flex", gap: 40, fontSize: 24, color: "#847665" }}>
           <span>Ventures</span>
           <span>Credentials</span>
-          <span>Software · AI · Cloud · Creator infrastructure</span>
+          <span>Aotearoa New Zealand</span>
         </div>
       </div>
     ),

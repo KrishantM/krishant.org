@@ -61,15 +61,33 @@ The model is named **`Venture`** — never `Project`. Key fields:
 - **layout/** — `Header` (scroll-aware + mobile menu), `Footer`, `Section`
   (shell width, vertical rhythm, eyebrow/title/lede header), `Backdrop` (global
   grid + glow).
-- **hero/** — `Hero`, `HeroBackground` (CSS-only cinematic layer).
-- **ventures/** — `VentureGrid`, `VentureCard`, `VentureConstellation`
-  (interactive map + stacked mobile fallback), `CreatorHQMap`.
-- **about/** — `WhoIsKrishant`.
+- **hero/** — `Hero` (server; CSS entrance), `HeroBackground` (CSS-only
+  cinematic layer), `AskConsole` (the interactive AI-style prompt console; the
+  only client island in the hero). Its answers come from `src/lib/assistant.ts`,
+  which maps a query to a curated, data-driven response built from the content
+  files — never hardcoded facts.
+- **ventures/** — `FlagshipVentures` (the Gradual + Hiko feature cards),
+  `VentureConstellation` (interactive map + stacked mobile fallback),
+  `CreatorHQMap`.
+- **about/** — `WhoIsKrishant`, `Currently` (the "right now" snapshot; edit
+  `site.currently`).
 - **credentials/** — `CredentialsSection` composes `PwCBlock` +
   `CertificationsBlock` + skill pillars.
 - **contact/** — `ContactCTA`.
-- **ui/** — `Badge`, `Button`, `Card`, `Reveal` (the only animation primitive;
-  reduced-motion aware). Reuse these rather than re-styling ad hoc.
+- **ui/** — `Badge`, `Button`, `Card`, `Reveal` (the scroll-reveal primitive),
+  `Signature` (hand-drawn logo/mark), `ThemeToggle`. Reuse these rather than
+  re-styling ad hoc.
+
+## Theming
+
+Two themes (warm-dark default + warm-light) share one token set. CSS variables
+live in `globals.css` under `:root` (dark) and `[data-theme="light"]`; Tailwind
+maps them to tokens in `tailwind.config.ts` (`base`, `surface`, `ink*`, `line`,
+`accent`, `accent-gold`). A small inline script in `layout.tsx` sets the saved
+theme before paint (no flash); `ThemeToggle` flips `data-theme` on `<html>` and
+persists it. **Rule:** components reference tokens, never raw hex — that's what
+lets a single component render correctly in both themes. Per-venture accent hex
+lives in `src/lib/utils.ts` (`accentHex`) for SVG/inline use.
 
 ### A note on the constellation
 

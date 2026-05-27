@@ -11,15 +11,15 @@ export function ContactCTA() {
 
   return (
     <Reveal>
-      <div className="relative overflow-hidden rounded-xl2 border border-line bg-white/[0.025] p-8 text-center shadow-card backdrop-blur-sm sm:p-14">
+      <div className="relative overflow-hidden rounded-xl2 border border-line bg-surface/[0.04] p-8 text-center shadow-card sm:p-14">
         {/* Ambient glow */}
         <span
           aria-hidden
-          className="pointer-events-none absolute left-1/2 top-0 h-64 w-[40rem] max-w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-indigo/20 blur-3xl"
+          className="pointer-events-none absolute left-1/2 top-0 h-64 w-[40rem] max-w-[90%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/25 blur-3xl"
         />
 
         <div className="relative mx-auto max-w-2xl">
-          <h2 className="text-balance text-3xl font-semibold tracking-tightest text-ink sm:text-5xl">
+          <h2 className="text-balance font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
             {sections.connect.title}
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-pretty text-base leading-relaxed text-ink-muted sm:text-lg">

@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface RevealProps {
   children: ReactNode;
@@ -13,37 +13,43 @@ interface RevealProps {
 }
 
 /**
- * Single, isolated scroll-reveal primitive. Every section composes this rather
- * than re-implementing animation. Honours prefers-reduced-motion by snapping
- * straight to the visible state.
+ * Lightweight scroll-reveal primitive. A single IntersectionObserver toggles a
+ * CSS class — no animation library, minimal hydration cost. The hidden state is
+ * gated on `.js` (see globals.css) so content is fully visible without JS, and
+ * `prefers-reduced-motion` snaps straight to visible.
  */
-export function Reveal({ children, delay = 0, className, as = "div" }: RevealProps) {
-  const reduce = useReducedMotion();
+export function Reveal({ children, delay = 0, className, as: Tag = "div" }: RevealProps) {
+  const ref = useRef<HTMLElement | null>(null);
+  const [visible, setVisible] = useState(false);
 
-  const variants: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 18 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: reduce ? 0 : 0.7,
-        ease: [0.16, 1, 0.3, 1],
-        delay: reduce ? 0 : delay,
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || visible) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
       },
-    },
-  };
+      { rootMargin: "0px 0px -80px 0px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [visible]);
 
-  const MotionTag = motion[as];
-
+  const Comp = Tag as "div";
   return (
-    <MotionTag
-      className={className}
-      variants={variants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
+    <Comp
+      ref={ref as React.Ref<HTMLDivElement>}
+      className={cn("reveal", visible && "is-visible", className)}
+      style={{ "--reveal-delay": `${delay}s` } as CSSProperties}
     >
       {children}
-    </MotionTag>
+    </Comp>
   );
 }

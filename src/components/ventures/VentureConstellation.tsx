@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ventures } from "@/content/ventures";
 import type { Venture } from "@/types/venture";
 import { getAccentHex, withAlpha, cn } from "@/lib/utils";
@@ -75,21 +74,7 @@ export function VentureConstellation() {
 
 function ConstellationMap() {
   const [active, setActive] = useState<string | null>(null);
-  const reduce = useReducedMotion();
   const highlighted = highlightedEdges(active);
-
-  const nodeVariants: Variants = {
-    hidden: { opacity: 0, scale: reduce ? 1 : 0.4 },
-    visible: (i: number) => ({
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delay: reduce ? 0 : 0.15 + i * 0.08,
-        duration: 0.6,
-        ease: [0.16, 1, 0.3, 1],
-      },
-    }),
-  };
 
   return (
     <div className="relative mx-auto aspect-[4/3] w-full max-w-3xl">
@@ -104,7 +89,7 @@ function ConstellationMap() {
           const a = layout[from];
           const b = layout[to];
           const toVenture = ventures.find((v) => v.slug === to);
-          const accent = toVenture ? getAccentHex(toVenture.accent) : "#7c8bff";
+          const accent = toVenture ? getAccentHex(toVenture.accent) : "#ffb454";
           const isOn = highlighted.has(`${from}-${to}`);
           return (
             <line
@@ -126,31 +111,28 @@ function ConstellationMap() {
         })}
       </svg>
 
-      {/* Center node — Krishant */}
+      {/* Center node — Krishant. Entrance is CSS `pop` on an inner element so it
+          doesn't fight the centring transform on the wrapper. */}
       <div
         className="absolute -translate-x-1/2 -translate-y-1/2"
         style={{ left: `${layout.center.x}%`, top: `${layout.center.y}%` }}
       >
-        <motion.div
-          custom={0}
-          variants={nodeVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="relative grid h-24 w-24 place-items-center"
+        <div
+          className="relative grid h-24 w-24 animate-pop place-items-center"
+          style={{ animationDelay: "0.1s" }}
         >
-          <span className="absolute inset-0 animate-pulseslow rounded-full bg-accent-indigo/20 blur-xl" />
-          <span className="absolute inset-2 rounded-full border border-white/15" />
-          <span className="absolute inset-0 rounded-full border border-white/10" />
+          <span className="absolute inset-0 rounded-full bg-accent/20 blur-xl" />
+          <span className="absolute inset-2 rounded-full border border-ink/15" />
+          <span className="absolute inset-0 rounded-full border border-ink/10" />
           <span className="relative text-center">
-            <span className="block text-sm font-semibold tracking-tightest text-ink">
+            <span className="block font-hand text-xl leading-none text-ink">
               {site.name}
             </span>
             <span className="block font-mono text-[10px] text-ink-faint">
               .org
             </span>
           </span>
-        </motion.div>
+        </div>
       </div>
 
       {/* Venture nodes */}
@@ -163,13 +145,7 @@ function ConstellationMap() {
             className="absolute -translate-x-1/2 -translate-y-1/2"
             style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
           >
-            <motion.div
-              custom={i + 1}
-              variants={nodeVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
+            <div className="animate-pop" style={{ animationDelay: `${0.18 + i * 0.08}s` }}>
               <ConstellationNode
                 venture={venture}
                 active={active === venture.slug}
@@ -177,7 +153,7 @@ function ConstellationMap() {
                 onDeactivate={() => setActive(null)}
                 placement={tooltipPlacement(pos)}
               />
-            </motion.div>
+            </div>
           </div>
         );
       })}
@@ -237,7 +213,7 @@ function ConstellationNode({
     <span
       role="presentation"
       className={cn(
-        "pointer-events-none absolute z-20 w-56 rounded-xl2 border border-line bg-base-800/90 p-4 text-left shadow-card backdrop-blur-xl transition-all duration-300",
+        "pointer-events-none absolute z-20 w-56 rounded-xl2 border border-line bg-base-800/95 p-4 text-left shadow-card transition-opacity duration-300",
         placement,
         active ? "opacity-100 translate-y-0" : "invisible opacity-0",
       )}
@@ -267,7 +243,7 @@ function ConstellationNode({
   );
 
   const className =
-    "group/node relative flex flex-col items-center rounded-lg p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40";
+    "group/node relative flex flex-col items-center rounded-lg p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/40";
 
   if (hasExternal) {
     return (
@@ -276,7 +252,7 @@ function ConstellationNode({
         target="_blank"
         rel="noopener noreferrer"
         className={className}
-        aria-label={`${venture.name} — ${venture.summary} (opens in a new tab)`}
+        aria-label={`${venture.name}: ${venture.summary} (opens in a new tab)`}
         {...handlers}
       >
         {inner}
@@ -286,7 +262,7 @@ function ConstellationNode({
   }
 
   return (
-    <Link href={href} className={className} aria-label={`${venture.name} — ${venture.summary}`} {...handlers}>
+    <Link href={href} className={className} aria-label={`${venture.name}: ${venture.summary}`} {...handlers}>
       {inner}
       {tooltip}
     </Link>
@@ -304,13 +280,13 @@ function ConstellationStacked() {
     <div className="relative mx-auto max-w-md">
       {/* Center marker */}
       <div className="mb-6 flex items-center gap-3">
-        <span className="grid h-12 w-12 place-items-center rounded-full border border-white/15 bg-white/[0.03]">
-          <span className="text-xs font-semibold tracking-tightest text-ink">
+        <span className="grid h-12 w-12 place-items-center rounded-full border border-ink/15 bg-surface/[0.05]">
+          <span className="font-hand text-base leading-none text-ink">
             {site.name}
           </span>
         </span>
         <p className="text-sm text-ink-muted">
-          krishant.org at the centre — ventures branch out from here.
+          krishant.org at the centre. Ventures branch out from here.
         </p>
       </div>
 
@@ -339,7 +315,7 @@ function StackedNode({ venture, small }: { venture: Venture; small?: boolean }) 
   const href = hasExternal ? venture.externalUrl! : `/ventures/${venture.slug}`;
 
   const content = (
-    <div className="flex items-center justify-between gap-3 rounded-xl2 border border-line bg-white/[0.025] px-4 py-3 backdrop-blur-sm transition-colors hover:border-white/20">
+    <div className="flex items-center justify-between gap-3 rounded-xl2 border border-line bg-surface/[0.04] px-4 py-3 transition-colors hover:border-ink/20">
       <div className="min-w-0">
         <div className="flex items-center gap-2">
           <span

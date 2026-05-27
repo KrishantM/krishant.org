@@ -22,7 +22,7 @@ export function CreatorHQMap() {
       {/* Operating-layer hub */}
       <Reveal>
         <div
-          className="relative overflow-hidden rounded-xl2 border border-line bg-white/[0.025] p-7 shadow-card backdrop-blur-sm sm:p-9"
+          className="relative overflow-hidden rounded-xl2 border border-line bg-surface/[0.04] p-7 shadow-card sm:p-9"
           style={{ ["--hub" as string]: hubAccent }}
         >
           {/* Shimmering top edge to signal "active layer" */}
@@ -50,7 +50,7 @@ export function CreatorHQMap() {
                   Operating layer
                 </span>
               </div>
-              <h3 className="mt-3 text-2xl font-semibold tracking-tightest text-ink sm:text-3xl">
+              <h3 className="mt-3 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
                 {hub.name}
               </h3>
               <p className="mt-3 text-pretty leading-relaxed text-ink-muted">
@@ -64,7 +64,7 @@ export function CreatorHQMap() {
             {hub.focusAreas.map((area) => (
               <li
                 key={area}
-                className="rounded-full border border-line bg-white/[0.03] px-3 py-1 text-xs text-ink-muted"
+                className="rounded-full border border-line bg-surface/[0.05] px-3 py-1 text-xs text-ink-muted"
               >
                 {area}
               </li>
@@ -75,15 +75,15 @@ export function CreatorHQMap() {
 
       {/* Branch connector (sm+) */}
       <div aria-hidden className="relative mx-auto hidden h-14 sm:block">
-        <span className="absolute left-1/2 top-0 h-7 w-px -translate-x-1/2 bg-gradient-to-b from-white/30 to-white/10" />
-        <span className="absolute left-1/4 right-1/4 top-7 h-px bg-white/12" />
-        <span className="absolute left-1/4 top-7 h-7 w-px bg-gradient-to-b from-white/12 to-transparent" />
-        <span className="absolute right-1/4 top-7 h-7 w-px bg-gradient-to-b from-white/12 to-transparent" />
-        <span className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/40" />
+        <span className="absolute left-1/2 top-0 h-7 w-px -translate-x-1/2 bg-gradient-to-b from-ink/30 to-ink/10" />
+        <span className="absolute left-1/4 right-1/4 top-7 h-px bg-ink/[0.12]" />
+        <span className="absolute left-1/4 top-7 h-7 w-px bg-gradient-to-b from-ink/[0.12] to-transparent" />
+        <span className="absolute right-1/4 top-7 h-7 w-px bg-gradient-to-b from-ink/[0.12] to-transparent" />
+        <span className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent" />
       </div>
 
       {/* Mobile connector */}
-      <div aria-hidden className="mx-auto my-4 h-6 w-px bg-gradient-to-b from-white/25 to-transparent sm:hidden" />
+      <div aria-hidden className="mx-auto my-4 h-6 w-px bg-gradient-to-b from-ink/25 to-transparent sm:hidden" />
 
       {/* Connected creator-led brands */}
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -98,7 +98,7 @@ export function CreatorHQMap() {
       <Reveal delay={0.2}>
         <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-ink-faint">
           Creator infrastructure, content systems, audience growth, and digital
-          brand operations — one operating layer powering distinct creator-led
+          brand operations. One operating layer powering distinct creator-led
           brands.
         </p>
       </Reveal>
@@ -113,7 +113,7 @@ function EcosystemBrand({ brand }: { brand: Venture }) {
 
   const card = (
     <div
-      className="group relative h-full overflow-hidden rounded-xl2 border border-line bg-white/[0.025] p-6 shadow-card backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-white/20"
+      className="group relative h-full overflow-hidden rounded-xl2 border border-line bg-surface/[0.04] p-6 shadow-card transition-all duration-500 hover:-translate-y-1 hover:border-ink/20"
       style={{ borderTop: `2px solid ${accent}` }}
     >
       <span
@@ -122,7 +122,7 @@ function EcosystemBrand({ brand }: { brand: Venture }) {
         style={{ background: accent }}
       />
       <div className="relative flex items-center justify-between gap-3">
-        <h4 className="text-xl font-semibold tracking-tightest text-ink">
+        <h4 className="font-display text-xl font-semibold tracking-tight text-ink">
           {brand.name}
         </h4>
         <span className="text-sm text-ink-muted">{hasExternal ? "↗" : "→"}</span>
@@ -144,7 +144,7 @@ function EcosystemBrand({ brand }: { brand: Venture }) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${brand.name} (opens in a new tab)`}
-        className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-base rounded-xl2"
+        className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/40 focus-visible:ring-offset-2 focus-visible:ring-offset-base rounded-xl2"
       >
         {card}
       </a>

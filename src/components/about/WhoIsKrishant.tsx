@@ -13,10 +13,10 @@ export function WhoIsKrishant() {
       {/* Lead statement */}
       <div className="lg:col-span-7">
         <Reveal>
-          <p className="text-balance text-2xl font-medium leading-snug tracking-tight text-ink sm:text-3xl md:text-[2.1rem]">
-            <span className="text-ink-faint">“</span>
+          <p className="text-balance font-display text-3xl font-medium leading-snug tracking-tight text-ink sm:text-4xl">
+            <span className="text-accent">“</span>
             {who.lead}
-            <span className="text-ink-faint">”</span>
+            <span className="text-accent">”</span>
           </p>
         </Reveal>
 
@@ -36,12 +36,12 @@ export function WhoIsKrishant() {
             {who.principles.map((p) => (
               <li
                 key={p.title}
-                className="group bg-base-800/60 p-5 backdrop-blur-sm transition-colors hover:bg-base-700/60"
+                className="group bg-base-800/60 p-5 transition-colors hover:bg-base-700/60"
               >
                 <div className="flex items-baseline gap-3">
                   <span
                     aria-hidden
-                    className="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-indigo transition-transform duration-300 group-hover:scale-150"
+                    className="mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent transition-transform duration-300 group-hover:scale-150"
                   />
                   <div>
                     <p className="font-medium tracking-tight text-ink">{p.title}</p>

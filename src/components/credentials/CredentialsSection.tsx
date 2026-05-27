@@ -22,7 +22,7 @@ export function CredentialsSection() {
 
       {/* Capability pillars */}
       <Reveal delay={0.15}>
-        <div className="mt-5 rounded-xl2 border border-line bg-white/[0.02] p-6 backdrop-blur-sm sm:p-7">
+        <div className="mt-5 rounded-xl2 border border-line bg-surface/[0.03] p-6 sm:p-7">
           <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-ink-faint">
             Capability pillars
           </p>
@@ -34,7 +34,7 @@ export function CredentialsSection() {
               >
                 <span
                   aria-hidden
-                  className="h-1 w-1 rounded-full bg-accent-indigo"
+                  className="h-1 w-1 rounded-full bg-accent"
                 />
                 {pillar}
               </li>

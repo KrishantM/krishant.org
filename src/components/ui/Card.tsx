@@ -19,9 +19,9 @@ export function Card({ children, className, accent, interactive = false }: CardP
   return (
     <div
       className={cn(
-        "group relative overflow-hidden rounded-xl2 border border-line bg-white/[0.025] shadow-card backdrop-blur-sm",
+        "group relative overflow-hidden rounded-xl2 border border-line bg-surface/[0.04] shadow-card",
         interactive &&
-          "transition-all duration-500 hover:-translate-y-1 hover:border-white/20",
+          "transition-all duration-500 hover:-translate-y-1 hover:border-ink/20",
         className,
       )}
       style={
