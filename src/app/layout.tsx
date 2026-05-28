@@ -65,7 +65,10 @@ export const metadata: Metadata = {
     description: site.meta.description,
   },
   robots: { index: true, follow: true },
-  icons: { icon: "/icon.svg" },
+  icons: {
+    icon: [{ url: "/lion-black.png", type: "image/png" }],
+    apple: "/lion-black.png",
+  },
 };
 
 export const viewport: Viewport = {
