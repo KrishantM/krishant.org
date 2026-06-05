@@ -127,3 +127,126 @@ connection) here.
 4. Keep animation in `Reveal` (and CSS) — don't scatter motion logic.
 5. Prefer one-object additions over new components when extending data.
 6. Make small, targeted changes; keep each component readable and focused.
+
+---
+
+## Performance baseline (task #1 — 2026-06-05)
+
+Measured on Next.js 14.2.35 production build. No Lighthouse / CWV run yet
+(requires a deployed URL or a local perf tool pass); numbers below are from the
+build output and static bundle analysis.
+
+### Build output (gzip, first-load JS)
+
+| Route              | Page     | First Load JS |
+|--------------------|----------|---------------|
+| `/` (homepage)     | 142 B    | **87.4 kB**   |
+| `/ventures/[slug]` | 1.38 kB  | 97.3 kB       |
+
+Shared JS (all routes): **87.3 kB gzip**
+
+| Chunk              | Raw     | Gzip    | Contents                     |
+|--------------------|---------|---------|------------------------------|
+| `fd9d1056`         | 169 KB  | 52 KB   | react-dom                    |
+| `framework`        | 137 KB  | 44 KB   | React                        |
+| `polyfills`        | 110 KB  | 39 KB   | Next.js polyfills            |
+| `main`             | 114 KB  | 33 KB   | Next.js router/internals     |
+| `117-a68`          | 121 KB  | 31 KB   | shared app utilities         |
+| `app/layout`       |  53 KB  | 14 KB   | all client components (app)  |
+| **Total**          | **704 KB** | **213 KB** |                        |
+
+The 87.4 kB first-load number is reasonable for a Next.js 14 app with no
+third-party animation library. React + Next.js core account for ~88 kB of that.
+
+### Public image assets
+
+| File             | Size    | Display use               | Issue                              |
+|------------------|---------|---------------------------|------------------------------------|
+| `lion-white.png` | **533 KB** | 30×30 px CSS `bg-image` | **Critical: 9× over-sized**        |
+| `lion-black.png` | 101 KB  | 30×30 px CSS `bg-image`  | Over-sized (theme-light variant)   |
+| `icon.svg`       | 1 KB    | favicon                   | Fine                               |
+
+`lion-white.png` (533 KB) is the single largest asset. It is loaded as a CSS
+`background-image` inside `.assistant-mark` — a 30×30 px span shown next to
+every assistant message. At 2× DPR the image needs to be at most ~60×60 px.
+Converting to WebP and right-sizing would reduce this to ~3–5 KB (>99% savings).
+
+### Client components (root layout — always hydrated)
+
+Nine `"use client"` boundaries, all mounted on every page via the root layout:
+
+| Component        | File                                | Cost/notes                                         |
+|------------------|-------------------------------------|----------------------------------------------------|
+| `WindowsProvider`| `windows/WindowsProvider.tsx`       | Lightweight context + useReducer                   |
+| `WindowManager`  | `windows/WindowManager.tsx`         | **Eagerly imports all 5 window views**             |
+| `Window`         | `windows/Window.tsx`                | Pointer-event drag/resize; only renders when open  |
+| `Sidebar`        | `layout/Sidebar.tsx`                | Nav + theme toggle; always visible                 |
+| `ThemeToggle`    | `ui/ThemeToggle.tsx`                | Minimal                                            |
+| `AskConsole`     | `hero/AskConsole.tsx`               | Interactive; always visible — correct to be client |
+| `Reveal`         | `ui/Reveal.tsx`                     | IntersectionObserver, no library                   |
+| `Panel`          | `layout/Panel.tsx`                  | Only active on `/ventures/[slug]` routes           |
+| `VentureConstellation` | `ventures/VentureConstellation.tsx` | Interactive SVG; only shown in map window   |
+
+`WindowManager` eagerly imports all five view components (VenturesView,
+MapView, CredentialsView, AboutView, ConnectView), including
+`VentureConstellation` (SVG map) and `FlagshipVentures`. These are bundled
+into the layout chunk even though they are only rendered when a window is
+opened. Switching `WindowManager` to `React.lazy` / `next/dynamic` per-view
+would allow the five window views to be code-split and loaded on demand.
+
+### Animation & motion
+
+No Framer Motion or other animation library — confirmed by bundle analysis.
+All motion is CSS-only (`globals.css` keyframes: `animate-fade-in`,
+`animate-fade-up`, `animate-pop`, `animate-panel-in`, `draw-on`,
+`constellation-flow`) or `IntersectionObserver` in `Reveal`. The backdrop is
+pure CSS with no JS. `prefers-reduced-motion` is respected via a global
+`@media` rule. This is the correct architecture — no library to remove.
+
+### Font loading
+
+Three Google Fonts via `next/font`:
+
+| Family    | Variable          | Use              | Subset  | Display |
+|-----------|-------------------|------------------|---------|---------|
+| Inter     | `--font-sans`     | Body text        | latin   | swap    |
+| Fraunces  | `--font-display`  | Display headings | latin   | swap    |
+| Caveat    | `--font-hand`     | Handwriting      | latin   | swap    |
+
+`display: swap` is correct (no invisible text). Mono uses the system stack
+(no additional file). Font loading is well-configured; no issues here.
+
+### Next.js config
+
+`next.config.mjs` is minimal — no image optimisation domains, no bundle
+analyser, no custom webpack config. The app does not use `next/image` for any
+user-facing image (the lion marks are loaded as CSS `background-image`, so
+`next/image` optimisation does not apply to them).
+
+### API route (`/api/ask`)
+
+Server-only (`runtime: "nodejs"`, `dynamic: "force-dynamic"`). The
+`@anthropic-ai/sdk` is not bundled into any client chunk — confirmed. A new
+`Anthropic` client is instantiated per request; no persistent connection, but
+acceptable for a low-traffic personal site.
+
+### Prioritised optimisation opportunities
+
+1. **`lion-white.png` (533 KB → ~3–5 KB)** — Convert to WebP/AVIF at 60×60 px.
+   Highest impact; virtually free win.
+2. **`lion-black.png` (101 KB → ~2–3 KB)** — Same treatment as above.
+3. **Window views: lazy-load with `next/dynamic`** — Split the five window
+   views out of the initial bundle; load each on first open.
+4. **No Lighthouse / CWV numbers yet** — Run `npx lighthouse` against a local
+   prod build (`npm run build && npm start`) or the live Vercel deploy to get
+   LCP, CLS, FCP, and TBT baselines.
+
+### What is already correct (do not change)
+
+- No Framer Motion or animation library
+- Fonts correctly subsetted with `display: swap`
+- No-flash theme bootstrap (inline script before paint)
+- `Reveal` uses IntersectionObserver, not a library
+- `Backdrop` is pure CSS
+- `@anthropic-ai/sdk` is server-only
+- `prefers-reduced-motion` correctly respected
