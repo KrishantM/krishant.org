@@ -1,12 +1,31 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useWindows, type WindowKey } from "./WindowsProvider";
 import { Window } from "./Window";
-import { VenturesView } from "./views/VenturesView";
-import { MapView } from "./views/MapView";
-import { CredentialsView } from "./views/CredentialsView";
-import { AboutView } from "./views/AboutView";
-import { ConnectView } from "./views/ConnectView";
+
+// Each view is code-split and fetched only when its window is first opened,
+// keeping the views out of the initial layout bundle.
+const VenturesView = dynamic(
+  () => import("./views/VenturesView").then((m) => ({ default: m.VenturesView })),
+  { ssr: false },
+);
+const MapView = dynamic(
+  () => import("./views/MapView").then((m) => ({ default: m.MapView })),
+  { ssr: false },
+);
+const CredentialsView = dynamic(
+  () => import("./views/CredentialsView").then((m) => ({ default: m.CredentialsView })),
+  { ssr: false },
+);
+const AboutView = dynamic(
+  () => import("./views/AboutView").then((m) => ({ default: m.AboutView })),
+  { ssr: false },
+);
+const ConnectView = dynamic(
+  () => import("./views/ConnectView").then((m) => ({ default: m.ConnectView })),
+  { ssr: false },
+);
 
 const VIEWS: Record<WindowKey, { title: string; render: () => React.ReactNode }> = {
   ventures: { title: "Ventures", render: () => <VenturesView /> },
