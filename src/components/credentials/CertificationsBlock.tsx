@@ -1,4 +1,4 @@
-import { certifications } from "@/content/certifications";
+import { certifications, certificationsFooterNote } from "@/content/certifications";
 
 /**
  * Certifications block — separate from PwC. Restrained, premium presentation
@@ -67,7 +67,7 @@ export function CertificationsBlock() {
       </ul>
 
       <p className="relative mt-5 text-xs text-ink-faint">
-        Built to grow. Azure and further certifications slot in as they land.
+        {certificationsFooterNote}
       </p>
     </div>
   );
