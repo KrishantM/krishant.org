@@ -1,20 +1,50 @@
 "use client";
 
+import { lazy, Suspense } from "react";
 import { useWindows, type WindowKey } from "./WindowsProvider";
 import { Window } from "./Window";
-import { VenturesView } from "./views/VenturesView";
-import { MapView } from "./views/MapView";
-import { CredentialsView } from "./views/CredentialsView";
-import { AboutView } from "./views/AboutView";
-import { ConnectView } from "./views/ConnectView";
 
-const VIEWS: Record<WindowKey, { title: string; render: () => React.ReactNode }> = {
-  ventures: { title: "Ventures", render: () => <VenturesView /> },
-  map: { title: "The map", render: () => <MapView /> },
-  credentials: { title: "Credentials", render: () => <CredentialsView /> },
-  about: { title: "About me", render: () => <AboutView /> },
-  connect: { title: "Connect", render: () => <ConnectView /> },
+// Views are code-split: their modules (and sub-trees) are fetched only when a
+// window is first opened, keeping them out of the first-paint bundle.
+const VenturesView = lazy(() =>
+  import("./views/VenturesView").then((m) => ({ default: m.VenturesView })),
+);
+const MapView = lazy(() =>
+  import("./views/MapView").then((m) => ({ default: m.MapView })),
+);
+const CredentialsView = lazy(() =>
+  import("./views/CredentialsView").then((m) => ({ default: m.CredentialsView })),
+);
+const AboutView = lazy(() =>
+  import("./views/AboutView").then((m) => ({ default: m.AboutView })),
+);
+const ConnectView = lazy(() =>
+  import("./views/ConnectView").then((m) => ({ default: m.ConnectView })),
+);
+
+const VIEWS: Record<WindowKey, { title: string; View: React.ComponentType }> = {
+  ventures: { title: "Ventures", View: VenturesView },
+  map: { title: "The map", View: MapView },
+  credentials: { title: "Credentials", View: CredentialsView },
+  about: { title: "About me", View: AboutView },
+  connect: { title: "Connect", View: ConnectView },
 };
+
+function WindowLoading() {
+  return (
+    <div className="flex h-32 items-center justify-center">
+      <span className="flex gap-1.5" aria-label="Loading">
+        {[0, 1, 2].map((i) => (
+          <span
+            key={i}
+            className="h-1.5 w-1.5 animate-pulse rounded-full bg-ink-faint"
+            style={{ animationDelay: `${i * 0.15}s` }}
+          />
+        ))}
+      </span>
+    </div>
+  );
+}
 
 /**
  * Renders every open window above the console. The wrapper is `pointer-events-
@@ -32,10 +62,12 @@ export function WindowManager() {
     >
       <div className="relative h-full w-full">
         {openKeys.map((k) => {
-          const { title, render } = VIEWS[k];
+          const { title, View } = VIEWS[k];
           return (
             <Window key={k} windowKey={k} title={title}>
-              {render()}
+              <Suspense fallback={<WindowLoading />}>
+                <View />
+              </Suspense>
             </Window>
           );
         })}
