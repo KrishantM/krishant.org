@@ -72,16 +72,10 @@
 }
 
 @layer components {
-  /* Lion mark beside assistant messages. White on dark, black on light —
-     swapped purely in CSS so the same DOM element renders both. */
-  .assistant-mark {
-    background-image: url("/lion-white.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
+  /* Lion mark beside assistant messages. White on dark; CSS filter inverts to
+     black on light — single next/image-optimised asset serves both themes. */
   [data-theme="light"] .assistant-mark {
-    background-image: url("/lion-black.png");
+    filter: invert(1);
   }
 
   /* Theme-toggle icon swap, driven by the data-theme attribute (robust and

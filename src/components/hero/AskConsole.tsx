@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/site";
 import { type AskAction, fallbackText } from "@/lib/assistant";
@@ -129,9 +130,13 @@ export function AskConsole() {
               </div>
             ) : (
               <div key={m.id} className="flex animate-fade-in gap-3">
-                <span
+                <Image
+                  src="/lion-white.png"
+                  alt=""
                   aria-hidden
-                  className="assistant-mark mt-0.5 h-[30px] w-[30px] shrink-0"
+                  width={30}
+                  height={30}
+                  className="assistant-mark mt-0.5 shrink-0"
                 />
                 <div className="max-w-[90%] space-y-3">
                   <p
@@ -158,9 +163,13 @@ export function AskConsole() {
 
           {responding && (
             <div className="flex gap-3" aria-label="Thinking">
-              <span
+              <Image
+                src="/lion-white.png"
+                alt=""
                 aria-hidden
-                className="assistant-mark mt-0.5 h-[30px] w-[30px] shrink-0"
+                width={30}
+                height={30}
+                className="assistant-mark mt-0.5 shrink-0"
               />
               <div className="flex items-center gap-1 rounded-2xl rounded-tl-sm bg-surface/[0.05] px-4 py-3">
                 {[0, 1, 2].map((i) => (
