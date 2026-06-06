@@ -25,10 +25,18 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: PageProps): Metadata {
   const venture = getVenture(params.slug);
   if (!venture) return {};
+  const canonicalUrl = `${site.url}/ventures/${venture.slug}`;
   return {
     title: venture.name,
     description: venture.description,
+    alternates: { canonical: canonicalUrl },
     openGraph: {
+      title: `${venture.name} · ${site.name}`,
+      description: venture.description,
+      url: canonicalUrl,
+    },
+    twitter: {
+      card: "summary_large_image",
       title: `${venture.name} · ${site.name}`,
       description: venture.description,
     },
