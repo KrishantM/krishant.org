@@ -235,8 +235,9 @@ acceptable for a low-traffic personal site.
 1. **`lion-white.png` (533 KB → ~3–5 KB)** — Convert to WebP/AVIF at 60×60 px.
    Highest impact; virtually free win.
 2. **`lion-black.png` (101 KB → ~2–3 KB)** — Same treatment as above.
-3. **Window views: lazy-load with `next/dynamic`** — Split the five window
-   views out of the initial bundle; load each on first open.
+3. ~~**Window views: lazy-load with `next/dynamic`**~~ — **Done (task #2).** All
+   five window views are now code-split and loaded on demand via `next/dynamic`
+   with `ssr: false`.
 4. **No Lighthouse / CWV numbers yet** — Run `npx lighthouse` against a local
    prod build (`npm run build && npm start`) or the live Vercel deploy to get
    LCP, CLS, FCP, and TBT baselines.
