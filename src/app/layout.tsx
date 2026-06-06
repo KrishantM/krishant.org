@@ -77,6 +77,17 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.fullName,
+  url: site.url,
+  sameAs: [site.contact.linkedin],
+  jobTitle: "Founder & Builder",
+  description: site.meta.description,
+  email: site.contact.email,
+};
+
 /**
  * Runs before paint to set the saved theme (defaulting to warm-dark), so there
  * is no flash of the wrong theme on load.
@@ -107,6 +118,10 @@ export default function RootLayout({
     >
       <body className="relative min-h-svh">
         <script dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
         <Backdrop />
         <WindowsProvider>
           <Sidebar />
