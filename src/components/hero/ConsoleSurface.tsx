@@ -1,6 +1,6 @@
 import { site } from "@/content/site";
 import { Signature } from "@/components/ui/Signature";
-import { AskConsole } from "./AskConsole";
+import { AskConsoleLoader } from "./AskConsoleLoader";
 
 /**
  * The persistent landing surface that lives in the root layout: hero copy
@@ -44,7 +44,7 @@ export function ConsoleSurface() {
           className="mt-10 animate-fade-up sm:mt-12"
           style={{ animationDelay: "0.3s" }}
         >
-          <AskConsole />
+          <AskConsoleLoader />
         </div>
       </div>
     </div>
