@@ -15,7 +15,7 @@ export const site = {
   meta: {
     title: "Krishant Maharaj",
     description:
-      "The personal site of Krishant Maharaj. The ventures I'm building and the credentials behind them, across software, AI, cloud, creator infrastructure, and digital products. Built from Aotearoa New Zealand.",
+      "Krishant Maharaj — using AI, cloud architecture, and systems thinking to rebuild dated workflows. Building Gradual and Hiko from Aotearoa New Zealand.",
     ogImageAlt: "Krishant Maharaj, krishant.org",
   },
 
@@ -73,9 +73,9 @@ export const site = {
   hero: {
     greeting: "Hey, I'm",
     name: "Krishant Maharaj",
-    headline: "I build things to solve big problems",
+    headline: "I rebuild dated workflows with AI and cloud architecture.",
     subline:
-      "This is who I am, what I'm working on, and how you can reach out to me.",
+      "Systems thinking, real products, and the technical depth to ship them properly.",
     /** Copy for the interactive "ask" console in the hero. */
     console: {
       placeholder: "Ask me anything about my work...",
