@@ -27,6 +27,13 @@ export const certifications: Certification[] = [
 ];
 
 /**
+ * Footer note for the certifications block. Update this when new cert
+ * providers are added so the component needs no edit.
+ */
+export const certificationsFooterNote =
+  "Built to grow. Azure and further certifications slot in as they land.";
+
+/**
  * Capability pillars shaped by professional experience + certified depth.
  * Presented as a restrained signal — not a résumé skill list.
  */
