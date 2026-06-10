@@ -101,8 +101,8 @@ export function Window({ windowKey, title, children }: WindowProps) {
       }}
       className={cn(
         "pointer-events-auto absolute flex animate-panel-in flex-col overflow-hidden rounded-xl2 border border-line bg-base-800 shadow-card",
-        // Mobile fallback: occupy the safe area, ignore stored position/size.
-        "max-md:!inset-0 max-md:!left-0 max-md:!top-0 max-md:!h-auto max-md:!w-auto max-md:!rounded-none",
+        // Hidden on mobile — MobileView in WindowManager handles the mobile layout.
+        "max-md:hidden",
       )}
     >
       <div

@@ -120,44 +120,49 @@ export function Sidebar() {
       </aside>
 
       {/* MOBILE — corner floats + bottom nav */}
-      <div className="fixed left-4 top-4 z-40 md:hidden">
-        <HomeMark active={noWindowsOpen} onClick={closeAll} />
-      </div>
+      {/* K button and bottom nav hide when a section is open — MobileView has its own tabs. */}
+      {noWindowsOpen && (
+        <div className="fixed left-4 top-4 z-40 md:hidden">
+          <HomeMark active={noWindowsOpen} onClick={closeAll} />
+        </div>
+      )}
       <div className="fixed right-4 top-4 z-40 md:hidden">
         <ThemeToggle />
       </div>
 
-      <nav
-        aria-label="Primary"
-        className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-around border-t border-line bg-base/95 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 md:hidden"
-      >
-        {site.nav.map((item) => {
-          const key = item.key as WindowKey;
-          const Icon = ICONS[key];
-          const active = isOpen(key);
-          return (
-            <button
-              key={key}
-              type="button"
-              aria-label={item.label}
-              aria-pressed={active}
-              onClick={() => handleSidebarClick(key)}
-              className={cn(
-                "icon-trigger relative grid h-12 w-12 place-items-center rounded-full transition-colors",
-                active ? "text-accent" : "text-ink-muted",
-              )}
-            >
-              <Icon className="h-6 w-6" />
-              {active && (
-                <span
-                  aria-hidden
-                  className="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-accent"
-                />
-              )}
-            </button>
-          );
-        })}
-      </nav>
+      {noWindowsOpen && (
+        <nav
+          aria-label="Primary"
+          className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-around border-t border-line bg-base/95 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 md:hidden"
+        >
+          {site.nav.map((item) => {
+            const key = item.key as WindowKey;
+            const Icon = ICONS[key];
+            const active = isOpen(key);
+            return (
+              <button
+                key={key}
+                type="button"
+                aria-label={item.label}
+                aria-pressed={active}
+                onClick={() => handleSidebarClick(key)}
+                className={cn(
+                  "icon-trigger relative grid h-12 w-12 place-items-center rounded-full transition-colors",
+                  active ? "text-accent" : "text-ink-muted",
+                )}
+              >
+                <Icon className="h-6 w-6" />
+                {active && (
+                  <span
+                    aria-hidden
+                    className="absolute -bottom-1 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-accent"
+                  />
+                )}
+              </button>
+            );
+          })}
+        </nav>
+      )}
     </>
   );
 }
