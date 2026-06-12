@@ -19,9 +19,9 @@ export const ventures: Venture[] = [
     externalUrl: "https://gradual.co.nz",
     category: "AI / Learning / Career Development",
     status: "Active",
-    summary: "AI-assisted learning and career development.",
+    summary: "AI-powered career development built for real outcomes.",
     description:
-      "Gradual explores how AI can support learning, development, and career growth through more adaptive, personalised systems that meet people where they are and move them forward.",
+      "Gradual builds the AI layer for career development — adaptive, personalised, and designed to shift real outcomes rather than just track activity.",
     role: "Founder / Builder",
     focusAreas: [
       "AI-enabled learning",
@@ -43,9 +43,9 @@ export const ventures: Venture[] = [
     externalUrl: "https://hiko.org.nz",
     category: "Consumer / Local / Social Coordination",
     status: "Active",
-    summary: "Local discovery and social coordination.",
+    summary: "Find what's on. Plan it with people.",
     description:
-      "Hiko explores how people discover what's happening around them and coordinate social experiences in a more intuitive way, turning local activity into something effortless to find and act on.",
+      "Hiko is a local discovery and social coordination app — making it genuinely easy to find what's happening nearby and actually get people to show up.",
     role: "Founder / Builder",
     focusAreas: [
       "Local discovery",
@@ -69,7 +69,7 @@ export const ventures: Venture[] = [
     status: "Active",
     summary: "Infrastructure and operating systems for creator-led brands.",
     description:
-      "CreatorHQ is the operating layer for creator-led brands: content systems, audience growth, and digital infrastructure. It's the connective tissue beneath individual creator brands like TrenTwinsHQ and LexxLittleHQ.",
+      "CreatorHQ is the operating layer behind TrenTwinsHQ and LexxLittleHQ — shared content systems, audience infrastructure, and the operational backbone each brand runs on.",
     role: "Builder / Operator",
     focusAreas: [
       "Creator infrastructure",
@@ -91,10 +91,9 @@ export const ventures: Venture[] = [
     externalUrl: "https://trentwinshq.com",
     category: "Creator-Led Media / Community",
     status: "Active",
-    summary:
-      "A creator-led media and community brand within the CreatorHQ ecosystem.",
+    summary: "Creator-led media and community, running on CreatorHQ.",
     description:
-      "TrenTwinsHQ is a creator-led media and community brand built on the CreatorHQ operating layer, bringing content systems, audience engagement, and media infrastructure together.",
+      "TrenTwinsHQ is a creator-led media and community brand on the CreatorHQ platform — content, audience, and community built to grow.",
     role: "Builder / Operator",
     focusAreas: [
       "Creator-led brand",
@@ -116,10 +115,9 @@ export const ventures: Venture[] = [
     externalUrl: "https://lexxlittle.com",
     category: "Creator-Led Media / Community",
     status: "Active",
-    summary:
-      "A creator-led media and community brand within the CreatorHQ ecosystem.",
+    summary: "Creator-led brand on CreatorHQ, audience-first.",
     description:
-      "LexxLittleHQ is a creator-led media and community brand built on the CreatorHQ operating layer, bringing content systems, audience engagement, and media infrastructure together.",
+      "LexxLittleHQ is a creator-led brand on the CreatorHQ platform — audience-first content and community, with the same infrastructure backbone as TrenTwinsHQ.",
     role: "Builder / Operator",
     focusAreas: [
       "Creator-led brand",
