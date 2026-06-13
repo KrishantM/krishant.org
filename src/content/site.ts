@@ -15,7 +15,7 @@ export const site = {
   meta: {
     title: "Krishant Maharaj",
     description:
-      "Krishant Maharaj — using AI, cloud architecture, and systems thinking to rebuild dated workflows. Building Gradual and Hiko from Aotearoa New Zealand.",
+      "Krishant Maharaj — building Gradual and Hiko from Aotearoa New Zealand. Real products built with AI and cloud architecture.",
     ogImageAlt: "Krishant Maharaj, krishant.org",
   },
 
@@ -73,14 +73,14 @@ export const site = {
   hero: {
     greeting: "Hey, I'm",
     name: "Krishant Maharaj",
-    headline: "I rebuild dated workflows with AI and cloud architecture.",
+    headline: "I build software that fixes what’s broken.",
     subline:
-      "Systems thinking, real products, and the technical depth to ship them properly.",
+      "Real products, solid foundations, and the depth to actually ship them.",
     /** Copy for the interactive "ask" console in the hero. */
     console: {
       placeholder: "Ask me anything about my work...",
       welcome:
-        "Ask me about Krishant’s background, what he’s building, how to get in touch - or tap a prompt below.",
+        "Ask me anything — my background, what I’m building, or how to reach me. Or tap a prompt below.",
       suggestions: [
         { label: "What are you building?", query: "what are you building" },
         { label: "Tell me about Gradual", query: "tell me about gradual" },
@@ -100,7 +100,7 @@ export const site = {
     creatorHq: {
       eyebrow: "02 · the ecosystem",
       title: "The CreatorHQ ecosystem",
-      lede: "CreatorHQ is the operating layer beneath creator-led brands: the infrastructure for content systems, audience growth, and digital brand operations. TrenTwinsHQ and LexxLittleHQ are built on it.",
+      lede: "CreatorHQ is the operating backbone behind TrenTwinsHQ and LexxLittleHQ — shared content systems, audience infrastructure, and digital operations in one layer.",
     },
     constellation: {
       eyebrow: "03 · how it all connects",
@@ -129,7 +129,7 @@ export const site = {
     note: "A quick snapshot of what's got my attention right now.",
     items: [
       { label: "Building", value: "Gradual and Hiko, in parallel and on purpose" },
-      { label: "Exploring", value: "AI as everyday leverage for real workflows" },
+      { label: "Exploring", value: "AI where it makes things genuinely better" },
       { label: "Growing", value: "The CreatorHQ ecosystem and its brands" },
       { label: "Based in", value: "Aotearoa New Zealand" },
     ],
@@ -139,7 +139,7 @@ export const site = {
   who: {
     lead: "I'm drawn to the gap between how things work today and how they could work if you rebuilt them with better software, clearer incentives, and the patience to actually ship.",
     body: [
-      "I build real things. Most of what I make starts with a dated process or an obvious gap, and a stubborn belief that it can be done cleaner, with AI as leverage, solid technical foundations, and a genuine commercial edge.",
+      "I build real things. Most of what I make starts with a process that's clearly broken, and a stubborn belief it can be done right — cleaner architecture, AI that earns its place, and something that makes commercial sense.",
       "My range runs from cloud and architecture through to creator infrastructure and consumer products. The throughline is taste, curiosity, and a bias for shipping. I do most of this from Aotearoa New Zealand.",
     ],
     principles: [
@@ -153,7 +153,7 @@ export const site = {
   },
 
   footer: {
-    tagline: "Software, systems, and digital ventures, built for what comes next, from Aotearoa New Zealand.",
+    tagline: "Software, systems, and digital ventures — from Aotearoa New Zealand.",
     note: "Designed and built by Krishant Maharaj.",
     signoff: "Thanks for stopping by",
   },
