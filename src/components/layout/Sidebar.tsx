@@ -33,7 +33,7 @@ function HomeMark({ active, onClick }: HomeMarkProps) {
       aria-label={`${site.fullName}, back to the console`}
       aria-pressed={active}
       className={cn(
-        "grid h-10 w-10 place-items-center rounded-full border font-display text-base font-semibold transition-all",
+        "grid h-11 w-11 place-items-center rounded-full border font-display text-base font-semibold transition-all md:h-10 md:w-10",
         active
           ? "border-accent/40 bg-accent/15 text-accent shadow-[0_0_18px_rgb(var(--accent)/0.35)]"
           : "border-line bg-surface/[0.04] text-ink hover:border-ink/30",

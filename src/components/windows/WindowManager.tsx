@@ -82,7 +82,7 @@ function MobileView() {
           type="button"
           onClick={closeAll}
           aria-label="Back to console"
-          className="grid h-8 w-8 shrink-0 place-items-center rounded-md text-ink-faint transition-colors hover:bg-surface/[0.08] hover:text-ink"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-md text-ink-faint transition-colors hover:bg-surface/[0.08] hover:text-ink"
         >
           <svg
             width="16"
