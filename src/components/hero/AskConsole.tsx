@@ -136,7 +136,7 @@ export function AskConsole() {
                   aria-hidden
                   width={30}
                   height={30}
-                  className="assistant-mark mt-0.5 shrink-0"
+                  className="assistant-mark mt-0.5 shrink-0 size-[24px] sm:size-[30px]"
                 />
                 <div className="max-w-[90%] space-y-3">
                   <p
@@ -169,7 +169,7 @@ export function AskConsole() {
                 aria-hidden
                 width={30}
                 height={30}
-                className="assistant-mark mt-0.5 shrink-0"
+                className="assistant-mark mt-0.5 shrink-0 size-[24px] sm:size-[30px]"
               />
               <div className="flex items-center gap-1 rounded-2xl rounded-tl-sm bg-surface/[0.05] px-4 py-3">
                 {[0, 1, 2].map((i) => (
@@ -209,7 +209,7 @@ export function AskConsole() {
               type="button"
               onClick={cancel}
               aria-label="Stop"
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line text-ink-muted transition-colors hover:border-ink/30 hover:text-ink"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-line text-ink-muted transition-colors hover:border-ink/30 hover:text-ink sm:h-9 sm:w-9"
             >
               <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden>
                 <rect width="10" height="10" rx="1.5" fill="currentColor" />
@@ -220,7 +220,7 @@ export function AskConsole() {
               type="submit"
               aria-label="Send"
               disabled={!input.trim()}
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-accent text-base-900 transition-opacity hover:opacity-90 disabled:opacity-40"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-accent text-base-900 transition-opacity hover:opacity-90 disabled:opacity-40 sm:h-9 sm:w-9"
             >
               <svg
                 width="16"
@@ -252,7 +252,7 @@ export function AskConsole() {
             type="button"
             onClick={() => submit(s.query)}
             disabled={responding}
-            className="rounded-full border border-line bg-surface/[0.03] px-3.5 py-1.5 text-xs text-ink-muted transition-colors hover:border-ink/25 hover:text-ink disabled:opacity-50"
+            className="rounded-full border border-line bg-surface/[0.03] px-3.5 py-2 text-xs text-ink-muted transition-colors hover:border-ink/25 hover:text-ink disabled:opacity-50 sm:py-1.5"
           >
             {s.label}
           </button>
