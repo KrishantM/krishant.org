@@ -28,6 +28,10 @@ test('venture detail opened from the map closes without a 404', async ({ page })
 
 test('Escape also closes a venture detail without a 404', async ({ page }) => {
   await page.goto('/ventures/creatorhq');
+  // The panel focuses its close button on mount, so waiting for that proves
+  // React has hydrated and the Escape handler is attached. Without this the
+  // keypress can land before hydration on a slow (production) load.
+  await expect(page.getByRole('button', { name: 'Close panel' })).toBeFocused();
   await page.keyboard.press('Escape');
   await expect(page).toHaveURL(/\/$/);
   await expect(page.locator('body')).not.toContainText(NOT_FOUND);
