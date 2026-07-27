@@ -45,6 +45,25 @@ test('every internal venture page renders and closes cleanly', async ({ page }) 
   }
 });
 
+test('no em dashes in user-facing copy', async ({ page }) => {
+  // Krishant doesn't write with em dashes and they read as AI-generated, so
+  // they're kept out of the content files. Sweep the console plus every pane.
+  await page.goto('/');
+  const surfaces = ['Ventures', 'Map', 'Credentials', 'About', 'Connect'];
+  for (const name of surfaces) {
+    await page.getByRole('button', { name, exact: true }).first().click();
+    await page.waitForTimeout(300);
+  }
+  const body = await page.locator('body').innerText();
+  expect(body, 'em dash found in rendered copy').not.toContain('—');
+
+  for (const slug of ['surya', 'gradual', 'hiko', 'creatorhq']) {
+    await page.goto(`/ventures/${slug}`);
+    const detail = await page.locator('body').innerText();
+    expect(detail, `em dash found on /ventures/${slug}`).not.toContain('—');
+  }
+});
+
 test('Surya leads the ventures pane and appears on the map', async ({ page }) => {
   await page.goto('/');
 

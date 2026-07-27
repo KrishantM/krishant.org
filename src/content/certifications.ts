@@ -55,7 +55,7 @@ export const pwc = {
   name: "PwC",
   role: "Professional background",
   statement:
-    "Alongside my independent work, my time at PwC shaped how I think about cloud, architecture, security, and delivery at scale — working inside the kind of organisational complexity that most product builders never encounter.",
+    "Alongside my independent work, my time at PwC shaped how I think about cloud, architecture, security, and delivery at scale, working inside the kind of organisational complexity most product builders never see.",
   themes: [
     "Cloud",
     "Architecture",

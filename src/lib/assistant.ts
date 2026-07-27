@@ -189,5 +189,5 @@ export function pickActions(raw: string): AskAction[] {
  * uses only the same content the model would have had access to.
  */
 export function fallbackText(): string {
-  return "Something on my side broke for a second — try again in a moment. In the meantime, the prompts below are a good way in.";
+  return "Something on my side broke for a second. Try again in a moment, or use one of the prompts below.";
 }

@@ -22,7 +22,7 @@ export const ventures: Venture[] = [
     status: "Active",
     summary: "An app isn't a business. Surya runs the whole thing.",
     description:
-      "Surya is an AI operator for people building without a technical team. It sets the strategy, builds the product, and runs the operations around it — with you approving anything that actually matters. The loop between strategising and building is the point: context compounds across domains instead of being stranded in separate tools.",
+      "Surya is an AI operator for people building without a technical team. It sets the strategy, builds the product, and runs the operations around it, with you approving anything that actually matters. The loop between strategising and building is the point: context compounds across domains instead of being stranded in separate tools.",
     role: "Co-founder / CEO",
     focusAreas: [
       "AI agents",
@@ -46,7 +46,7 @@ export const ventures: Venture[] = [
     status: "Active",
     summary: "AI-powered career development built for real outcomes.",
     description:
-      "Gradual builds the AI layer for career development — adaptive, personalised, and designed to shift real outcomes rather than just track activity.",
+      "Gradual builds the AI layer for career development. It's adaptive and personalised, and it's built to shift real outcomes rather than just track activity.",
     role: "Founder / Builder",
     focusAreas: [
       "AI-enabled learning",
@@ -70,7 +70,7 @@ export const ventures: Venture[] = [
     status: "Active",
     summary: "Find what's on. Plan it with people.",
     description:
-      "Hiko is a local discovery and social coordination app — making it genuinely easy to find what's happening nearby and actually get people to show up.",
+      "Hiko is a local discovery and social coordination app. It makes it easy to find what's happening nearby, and actually get people to show up.",
     role: "Founder / Builder",
     focusAreas: [
       "Local discovery",
@@ -94,7 +94,7 @@ export const ventures: Venture[] = [
     status: "Active",
     summary: "Infrastructure and operating systems for creator-led brands.",
     description:
-      "CreatorHQ is the operating layer behind TrenTwinsHQ and LexxLittleHQ — shared content systems, audience infrastructure, and the operational backbone each brand runs on.",
+      "CreatorHQ is the operating layer behind TrenTwinsHQ and LexxLittleHQ. Shared content systems, audience infrastructure, and the operational backbone each brand runs on.",
     role: "Builder / Operator",
     focusAreas: [
       "Creator infrastructure",
@@ -118,7 +118,7 @@ export const ventures: Venture[] = [
     status: "Active",
     summary: "Creator-led media and community, running on CreatorHQ.",
     description:
-      "TrenTwinsHQ is a creator-led media and community brand on the CreatorHQ platform — content, audience, and community built to grow.",
+      "TrenTwinsHQ is a creator-led media and community brand on the CreatorHQ platform. Content, audience, and community built to grow.",
     role: "Builder / Operator",
     focusAreas: [
       "Creator-led brand",
@@ -142,7 +142,7 @@ export const ventures: Venture[] = [
     status: "Active",
     summary: "Creator-led brand on CreatorHQ, audience-first.",
     description:
-      "LexxLittleHQ is a creator-led brand on the CreatorHQ platform — audience-first content and community, with the same infrastructure backbone as TrenTwinsHQ.",
+      "LexxLittleHQ is a creator-led brand on the CreatorHQ platform. Audience-first content and community, on the same infrastructure backbone as TrenTwinsHQ.",
     role: "Builder / Operator",
     focusAreas: [
       "Creator-led brand",

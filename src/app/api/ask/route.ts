@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
   if (!limit.ok) {
     return NextResponse.json<AskResult>(
       {
-        text: `You've sent a few messages quickly — give me about ${limit.retryAfter}s and try again.`,
+        text: `You've sent a few messages quickly. Give me about ${limit.retryAfter}s and try again.`,
         actions: [],
       },
       { status: 429, headers: { "Retry-After": String(limit.retryAfter) } },
@@ -115,7 +115,7 @@ export async function POST(req: NextRequest) {
     if (!text) {
       return NextResponse.json<AskResult>(
         {
-          text: "I couldn't quite parse that — try rephrasing, or tap a prompt below.",
+          text: "I couldn't quite parse that. Try rephrasing, or tap a prompt below.",
           actions: pickActions(message),
         },
         { status: 200 },
@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
     console.error("[/api/ask] anthropic error", err);
     return NextResponse.json<AskResult>(
       {
-        text: "Something on my side broke for a second — try again in a moment. The prompts below still work.",
+        text: "Something on my side broke for a second. Try again in a moment, the prompts below still work.",
         actions: pickActions(message),
       },
       { status: 502 },

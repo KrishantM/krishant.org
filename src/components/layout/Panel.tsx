@@ -54,7 +54,7 @@ export function Panel({
       role="dialog"
       aria-modal="true"
       aria-labelledby="panel-title"
-      className="fixed inset-0 z-30 animate-panel-in overflow-y-auto bg-base/85 md:left-16"
+      className="fixed inset-0 z-30 animate-panel-in overflow-y-auto bg-base/[0.97] backdrop-blur-xl md:left-16"
       onClick={(e) => {
         if (e.target === e.currentTarget) router.push(closeHref);
       }}

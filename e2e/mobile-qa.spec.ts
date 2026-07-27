@@ -104,14 +104,14 @@ test.describe("Hero copy — task 11", () => {
   }) => {
     await page.goto("/");
     // Partial match avoids Unicode apostrophe edge-cases while still verifying
-    // the task-11 rewrite ("I build software" replaced the old AI-cliché copy).
-    await expect(page.locator("h1")).toContainText("I build software");
+    // the headline is the Surya-led rewrite, not the old AI-cliché copy.
+    await expect(page.locator("h1")).toContainText("I build AI that actually runs things");
   });
 
   test("subline is present", async ({ page }) => {
     await page.goto("/");
     await expect(
-      page.locator("p").filter({ hasText: "Real products, solid foundations" }),
+      page.locator("p").filter({ hasText: "an AI operator that plans, builds and runs" }).first(),
     ).toBeVisible();
   });
 
@@ -373,11 +373,12 @@ test.describe("Desktop no-regression", () => {
 
   test("hero h1 and subline are present on desktop", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator("h1")).toContainText("I build software");
+    await expect(page.locator("h1")).toContainText("I build AI that actually runs things");
     await expect(
       page
         .locator("p")
-        .filter({ hasText: "Real products, solid foundations" }),
+        .filter({ hasText: "an AI operator that plans, builds and runs" })
+        .first(),
     ).toBeVisible();
   });
 });
@@ -437,7 +438,7 @@ test.describe("Reduced-motion", () => {
     });
     const page = await ctx.newPage();
     await page.goto("/");
-    await expect(page.locator("h1")).toContainText("I build software");
+    await expect(page.locator("h1")).toContainText("I build AI that actually runs things");
     await ctx.close();
   });
 

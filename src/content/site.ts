@@ -15,7 +15,7 @@ export const site = {
   meta: {
     title: "Krishant Maharaj",
     description:
-      "Krishant Maharaj — building Surya, an AI operator that runs the whole business, from Aotearoa New Zealand. Real products built with AI and cloud architecture.",
+      "Krishant Maharaj is building Surya, an AI operator that runs the whole business, from Aotearoa New Zealand. Real products built with AI and cloud architecture.",
     ogImageAlt: "Krishant Maharaj, krishant.org",
   },
 
@@ -71,14 +71,14 @@ export const site = {
   hero: {
     greeting: "Hey, I'm",
     name: "Krishant Maharaj",
-    headline: "I build software that fixes what’s broken.",
+    headline: "I build AI that actually runs things.",
     subline:
-      "Real products, solid foundations, and the depth to actually ship them.",
+      "Right now that's Surya, an AI operator that plans, builds and runs the whole business with you. Gradual and Hiko sit alongside it.",
     /** Copy for the interactive "ask" console in the hero. */
     console: {
       placeholder: "Ask me anything about my work...",
       welcome:
-        "Ask me anything — my background, what I’m building, or how to reach me. Or tap a prompt below.",
+        "Ask me anything about my background, what I'm building, or how to reach me. Or tap a prompt below.",
       suggestions: [
         { label: "What are you building?", query: "what are you building" },
         { label: "Tell me about Surya", query: "tell me about surya" },
@@ -94,12 +94,12 @@ export const site = {
     ventures: {
       eyebrow: "01 · what I'm building",
       title: "Ventures",
-      lede: "Surya has most of my attention right now — an AI operator that plans, builds and runs a business with you. Gradual and Hiko sit alongside it. Real products, not slideware.",
+      lede: "Surya has most of my attention right now. It's an AI operator that plans, builds and runs a business with you. Gradual and Hiko sit alongside it. Real products, not slideware.",
     },
     creatorHq: {
       eyebrow: "02 · the ecosystem",
       title: "The CreatorHQ ecosystem",
-      lede: "CreatorHQ is the operating backbone behind TrenTwinsHQ and LexxLittleHQ — shared content systems, audience infrastructure, and digital operations in one layer.",
+      lede: "CreatorHQ is the operating backbone behind TrenTwinsHQ and LexxLittleHQ. Shared content systems, audience infrastructure, and digital operations in one layer.",
     },
     constellation: {
       eyebrow: "03 · how it all connects",
@@ -109,7 +109,7 @@ export const site = {
     credentials: {
       eyebrow: "04 · the credibility bit",
       title: "Credentials",
-      lede: "The grounding underneath the ambition: professional experience and certified technical depth. Context, not a CV.",
+      lede: "What sits underneath the ambition: professional experience and certified technical depth. Context, not a CV.",
     },
     who: {
       eyebrow: "05 · the person behind it",
@@ -118,7 +118,7 @@ export const site = {
     connect: {
       eyebrow: "06 · say hello",
       title: "Let's talk",
-      lede: "Building something, weighing a collaboration, or just curious? I'd genuinely love to hear from you.",
+      lede: "Building something, weighing up a collaboration, or just curious? I'd love to hear from you.",
     },
   },
 
@@ -137,10 +137,10 @@ export const site = {
 
   /** "Who is Krishant?" copy: concise, warm, first-person. */
   who: {
-    lead: "I'm drawn to the gap between how things work today and how they could work if you rebuilt them with better software, clearer incentives, and the patience to actually ship.",
+    lead: "I'm drawn to the gap between how things work now and how they'd work if someone rebuilt them properly. Better software, clearer incentives, and the patience to actually ship.",
     body: [
-      "I build real things. Most of what I make starts with a process that's clearly broken, and a stubborn belief it can be done right — cleaner architecture, AI that earns its place, and something that makes commercial sense.",
-      "My range runs from cloud and architecture through to creator infrastructure and consumer products. The throughline is taste, curiosity, and a bias for shipping. I do most of this from Aotearoa New Zealand.",
+      "I build real things. Most of what I make starts with a process that's clearly broken and a stubborn belief it can be done right. Cleaner architecture, AI that earns its place, and something that makes commercial sense.",
+      "Most of that goes into Surya at the moment, which I'm building with my brother. My range runs from cloud and architecture through to creator infrastructure and consumer products. The throughline is curiosity, taste, and a habit of shipping. I work mostly from Aotearoa New Zealand.",
     ],
     principles: [
       { title: "Build real things", note: "Shipped products beat decks and good intentions." },
@@ -153,7 +153,7 @@ export const site = {
   },
 
   footer: {
-    tagline: "Software, systems, and digital ventures — from Aotearoa New Zealand.",
+    tagline: "Software, systems, and digital ventures, built from Aotearoa New Zealand.",
     note: "Designed and built by Krishant Maharaj.",
     signoff: "Thanks for stopping by",
   },
