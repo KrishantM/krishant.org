@@ -7,11 +7,36 @@ import type { Venture } from "@/types/venture";
  * constellation, the CreatorHQ map, and the detail pages) reads from here.
  * Never hardcode venture content into components.
  *
- * Emphasis: Gradual and Hiko are the flagship ventures (`featured: true`).
+ * Emphasis: Surya leads, with Gradual and Hiko alongside it as the flagship
+ * ventures (`featured: true`). The first featured entry gets the lead card.
  * CreatorHQ is an umbrella / operating layer, and TrenTwinsHQ + LexxLittleHQ
  * sit under it (`parent: "creatorhq"`).
  */
 export const ventures: Venture[] = [
+  {
+    name: "Surya",
+    slug: "surya",
+    url: "https://trysurya.com",
+    externalUrl: "https://trysurya.com",
+    category: "AI Operator / Autonomous Business Operations",
+    status: "Active",
+    summary: "An app isn't a business. Surya runs the whole thing.",
+    description:
+      "Surya is an AI operator for people building without a technical team. It sets the strategy, builds the product, and runs the operations around it — with you approving anything that actually matters. The loop between strategising and building is the point: context compounds across domains instead of being stranded in separate tools.",
+    role: "Co-founder / CEO",
+    focusAreas: [
+      "AI agents",
+      "Autonomous operations",
+      "Governed execution",
+      "Product strategy",
+      "Security-first architecture",
+    ],
+    tags: ["AI", "Agents", "Startups", "Operations"],
+    accent: "amber",
+    featured: true,
+    parent: null,
+    hasInternalPage: true,
+  },
   {
     name: "Gradual",
     slug: "gradual",
@@ -79,7 +104,7 @@ export const ventures: Venture[] = [
       "Digital operating systems",
     ],
     tags: ["Creator", "Infrastructure", "Media", "Operations"],
-    accent: "amber",
+    accent: "copper",
     featured: false,
     parent: null,
     hasInternalPage: true,

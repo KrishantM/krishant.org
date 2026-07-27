@@ -15,7 +15,7 @@ export const site = {
   meta: {
     title: "Krishant Maharaj",
     description:
-      "Krishant Maharaj — building Gradual and Hiko from Aotearoa New Zealand. Real products built with AI and cloud architecture.",
+      "Krishant Maharaj — building Surya, an AI operator that runs the whole business, from Aotearoa New Zealand. Real products built with AI and cloud architecture.",
     ogImageAlt: "Krishant Maharaj, krishant.org",
   },
 
@@ -27,44 +27,42 @@ export const site = {
   },
 
   /**
-   * The sidebar nav. Each item is a route; the K monogram at the top of the
-   * sidebar is the home (console) affordance and is rendered separately.
-   * `tooltip` is the short label shown on hover, `description` is a one-line
-   * elaboration shown beneath the title inside each overlay panel header.
+   * The sidebar nav. Each `key` maps to a window in WindowsProvider — these are
+   * NOT routes; the sidebar opens windows in place rather than navigating, so
+   * no item here should carry an href (the old `/ventures`-style routes no
+   * longer exist and would 404). The K monogram at the top of the sidebar is
+   * the home (console) affordance and is rendered separately. `tooltip` is the
+   * short label shown on hover, `description` is a one-line elaboration shown
+   * beneath the title inside each window.
    */
   nav: [
     {
       key: "ventures",
       label: "Ventures",
-      href: "/ventures",
       tooltip: "Ventures",
-      description: "What I'm building, with Gradual and Hiko in the lead.",
+      description: "What I'm building, with Surya in the lead.",
     },
     {
       key: "map",
       label: "Map",
-      href: "/map",
       tooltip: "The map",
       description: "How everything I'm building connects.",
     },
     {
       key: "credentials",
       label: "Credentials",
-      href: "/credentials",
       tooltip: "Credentials",
       description: "Professional background and certified depth.",
     },
     {
       key: "about",
       label: "About",
-      href: "/about",
       tooltip: "About me",
       description: "Who I am and how I think.",
     },
     {
       key: "connect",
       label: "Connect",
-      href: "/connect",
       tooltip: "Connect",
       description: "Say hello, or start a conversation.",
     },
@@ -83,6 +81,7 @@ export const site = {
         "Ask me anything — my background, what I’m building, or how to reach me. Or tap a prompt below.",
       suggestions: [
         { label: "What are you building?", query: "what are you building" },
+        { label: "Tell me about Surya", query: "tell me about surya" },
         { label: "Tell me about Gradual", query: "tell me about gradual" },
         { label: "Tell me about Hiko", query: "tell me about hiko" },
         { label: "What's your background?", query: "what is your background" },
@@ -95,7 +94,7 @@ export const site = {
     ventures: {
       eyebrow: "01 · what I'm building",
       title: "Ventures",
-      lede: "Two ventures have my full attention right now: Gradual and Hiko. Real products, not slideware.",
+      lede: "Surya has most of my attention right now — an AI operator that plans, builds and runs a business with you. Gradual and Hiko sit alongside it. Real products, not slideware.",
     },
     creatorHq: {
       eyebrow: "02 · the ecosystem",
@@ -128,8 +127,9 @@ export const site = {
     label: "Currently",
     note: "A quick snapshot of what's got my attention right now.",
     items: [
-      { label: "Building", value: "Gradual and Hiko, in parallel and on purpose" },
-      { label: "Exploring", value: "AI where it makes things genuinely better" },
+      { label: "Building", value: "Surya, an AI operator that runs the whole business" },
+      { label: "Also building", value: "Gradual and Hiko, in parallel and on purpose" },
+      { label: "Exploring", value: "AI agents that earn the trust to act on your behalf" },
       { label: "Growing", value: "The CreatorHQ ecosystem and its brands" },
       { label: "Based in", value: "Aotearoa New Zealand" },
     ],

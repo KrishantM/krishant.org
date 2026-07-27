@@ -19,12 +19,15 @@ interface PanelProps {
 }
 
 /**
- * Overlay panel that renders over the persistent AskConsole. Each route
- * (`/ventures`, `/map`, …) renders its content inside one of these. Closing
- * (X, Escape, backdrop click) navigates back to `closeHref` (default `/`) so
- * the bare console returns, with its conversation intact. Nested routes
- * (e.g. `/ventures/[slug]`) set `closeHref="/ventures"` to return to the
- * parent overlay.
+ * Overlay panel that renders over the persistent AskConsole. Closing (X,
+ * Escape, backdrop click) navigates to `closeHref` (default `/`) so the bare
+ * console returns, with its conversation intact.
+ *
+ * Only real routes render a Panel — today that's `/ventures/[slug]` and the
+ * 404 page. Section navigation (Ventures, Map, Credentials, About, Connect)
+ * is window-based, not routed, so there is no `/ventures` index to close back
+ * to: `closeHref` must point at a route that actually exists, and `/` is the
+ * right default.
  */
 export function Panel({
   title,

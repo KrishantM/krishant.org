@@ -86,7 +86,6 @@ export default function VenturePage({ params }: PageProps) {
       title={venture.name}
       description={venture.summary}
       eyebrow={eyebrow}
-      closeHref="/ventures"
     >
       {/* Accent glow */}
       <span

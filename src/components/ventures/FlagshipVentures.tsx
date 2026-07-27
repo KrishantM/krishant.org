@@ -1,28 +1,42 @@
 import Link from "next/link";
 import { featuredVentures } from "@/content/ventures";
 import type { Venture } from "@/types/venture";
-import { getAccentHex } from "@/lib/utils";
+import { getAccentHex, cn } from "@/lib/utils";
 import { Reveal } from "@/components/ui/Reveal";
 import { Badge } from "@/components/ui/Badge";
 
 /**
- * The flagship ventures (Gradual + Hiko), given deliberate weight as two large
- * feature cards. Data-driven via `featuredVentures`; CreatorHQ and its sub-brands
- * live in their own ecosystem section.
+ * The flagship ventures, given deliberate weight as large feature cards. The
+ * first entry leads and spans the full width; the rest sit beside each other
+ * beneath it. Data-driven via `featuredVentures` — reorder the content file to
+ * change which venture leads. CreatorHQ and its sub-brands live in their own
+ * ecosystem section.
  */
 export function FlagshipVentures() {
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       {featuredVentures.map((venture, i) => (
-        <Reveal key={venture.slug} delay={i * 0.1}>
-          <FlagshipCard venture={venture} index={i + 1} />
+        <Reveal
+          key={venture.slug}
+          delay={i * 0.1}
+          className={i === 0 ? "lg:col-span-2" : undefined}
+        >
+          <FlagshipCard venture={venture} index={i + 1} lead={i === 0} />
         </Reveal>
       ))}
     </div>
   );
 }
 
-function FlagshipCard({ venture, index }: { venture: Venture; index: number }) {
+function FlagshipCard({
+  venture,
+  index,
+  lead,
+}: {
+  venture: Venture;
+  index: number;
+  lead?: boolean;
+}) {
   const accent = getAccentHex(venture.accent);
   const hasExternal = Boolean(venture.externalUrl);
 
@@ -53,12 +67,28 @@ function FlagshipCard({ venture, index }: { venture: Venture; index: number }) {
         </span>
       </div>
 
-      <h3 className="relative mt-6 font-display text-4xl font-semibold tracking-tight text-ink sm:text-5xl">
+      <h3
+        className={cn(
+          "relative mt-6 font-display font-semibold tracking-tight text-ink",
+          lead ? "text-5xl sm:text-6xl" : "text-4xl sm:text-5xl",
+        )}
+      >
         {venture.name}
       </h3>
       <p className="relative mt-2 text-sm text-ink-faint">{venture.category}</p>
 
-      <p className="relative mt-5 max-w-md text-pretty leading-relaxed text-ink-muted">
+      {lead && (
+        <p className="relative mt-4 max-w-2xl text-pretty font-display text-xl leading-snug text-ink sm:text-2xl">
+          {venture.summary}
+        </p>
+      )}
+
+      <p
+        className={cn(
+          "relative mt-5 text-pretty leading-relaxed text-ink-muted",
+          lead ? "max-w-3xl" : "max-w-md",
+        )}
+      >
         {venture.description}
       </p>
 

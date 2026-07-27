@@ -49,6 +49,14 @@ function has(q: string, ...terms: string[]): boolean {
 export function pickActions(raw: string): AskAction[] {
   const q = raw.toLowerCase().trim();
 
+  if (has(q, "surya")) {
+    const link = ventureLink("surya");
+    return [
+      ...(link ? [link] : []),
+      { kind: "window", label: "See it in context", key: "ventures" },
+    ];
+  }
+
   if (has(q, "gradual")) {
     const link = ventureLink("gradual");
     return [
@@ -89,9 +97,11 @@ export function pickActions(raw: string): AskAction[] {
       "products",
     )
   ) {
+    const s = ventureLink("surya");
     const g = ventureLink("gradual");
     const h = ventureLink("hiko");
     return [
+      ...(s ? [s] : []),
       ...(g ? [g] : []),
       ...(h ? [h] : []),
       { kind: "window", label: "See all ventures", key: "ventures" },
