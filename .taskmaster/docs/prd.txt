@@ -1,0 +1,127 @@
+# PRD: krishant.org
+
+## What this project is
+krishant.org is the forwardable personal domain of Krishant Maharaj — a fast,
+premium, data-driven Next.js 14 site (TypeScript, Tailwind 3.4, Framer Motion,
+Vercel + Cloudflare) that conveys credibility, curiosity, and commercial
+interest, and makes it easy to get in touch. It is NOT a CV, a generic portfolio,
+a startup directory, or a "venture hub" (that phrase is banned).
+
+## The single outcome that matters right now
+The site loads fast and feels instant — on both the dev server and the live
+domain — while keeping the warm, cinematic, constellation-driven identity, and
+clearly communicating positioning + credentials. Performance is the headline
+problem to fix this cycle (it has felt slow live and in dev).
+
+## Target users
+- Recruiters, founders, and prospective clients/partners who receive the link.
+- Press / collaborators evaluating credibility (PwC background + cloud certs).
+
+## Near-term requirements (this cycle)
+1. Performance pass (primary): audit and reduce client-component footprint,
+   Framer Motion cost, font loading (next/font), image optimization, and bundle
+   size; cut hydration/re-render overhead. Target strong Core Web Vitals and a
+   visibly fast first load on the live domain.
+2. Credentials structure: keep PwC (high-level only), certifications (AWS
+   SAA-C03, CLF-C02, future Azure), and selected work as cleanly separated,
+   data-driven blocks per CONTEXT.md / CLAUDE.md rules.
+3. Positioning/messaging: sharpen the <10s value statement — AI + cloud
+   architecture + systems thinking to modernize dated workflows — without turning
+   the site into LinkedIn or a badge wall.
+4. SEO: complete metadata, OpenGraph image, sitemap/robots, semantic structure.
+5. Mobile responsiveness + accessibility + reduced-motion preserved across both
+   themes (warm-dark default + warm-light).
+
+## Non-goals (this cycle)
+- Any redesign/rebrand or palette change (no cold indigo/cyan revival).
+- Adding a blog/CMS or changing the data-driven content model.
+- Hardcoding venture/certification facts into components.
+- Renaming the `Venture` data model.
+
+## UX requirements
+- Preserve the AskConsole hero, Signature draw-on motif, and constellation feel.
+- Theme via tokens only (never raw hex); define new colors in BOTH theme blocks.
+- First-person, warm, tight copy; restraint over walls of text.
+
+## Technical requirements
+- Next.js 14 App Router; content stays in src/content/* as single sources of
+  truth (ventures.ts, certifications.ts, site.ts).
+- Adding a venture/cert remains a one-object change (no data/presentation
+  coupling).
+- Must build (`npm run build`) and type-check (`npm run typecheck`) cleanly.
+
+## Security / privacy
+- No confidential PwC/client detail anywhere (names, projects, methods,
+  deliverables). Use only the approved pwc.statement.
+- No secrets in the repo (the site needs no runtime env vars).
+
+## Success metrics
+- Noticeably faster live load; strong Lighthouse performance + SEO scores.
+- Credentials read as a credibility layer, not the headline.
+- Positioning is graspable in under 10 seconds.
+
+## Implementation phases
+1. Performance audit + fixes.
+2. Credentials/positioning copy + structure tightening.
+3. SEO + accessibility/responsiveness verification.
+
+## Acceptance criteria
+- Measurable performance improvement (Lighthouse / Web Vitals) with the identity
+  and both themes intact.
+- Credentials cleanly separate PwC vs certs vs work, all data-driven.
+- `npm run build` and `npm run typecheck` pass.
+
+## How to test / build it
+- Build: `npm run build`
+- Typecheck: `npm run typecheck`
+- Lint: `npm run lint`
+
+## Hard constraint
+This is the LIVE site: REVIEW-ONLY. The orchestrator must never auto-merge here.
+All CLAUDE.md hard rules apply (no "venture hub", no confidential PwC detail,
+data-driven content, both themes, reduced-motion).
+
+---
+
+# Cycle 2: Mobile uplift (added 2026-06-07)
+
+## Why
+The site was built console/window-first for desktop. On mobile it falls down:
+section switching is broken, some elements are mis-sized, and the copy reads as
+obviously AI-generated. This cycle makes mobile a first-class, distinct
+experience and gives the whole site a human voice — without touching the desktop
+experience or the warm/cinematic identity.
+
+## Requirements
+1. Mobile navigation (primary): the desktop overlapping-"windows" metaphor does
+   not work on mobile. On mobile, tapping a nav item must switch to a single
+   full-screen view (one section at a time, no overlap, no drag, no pointer-event
+   dead zones) with a clear way back to the console and between sections. Mobile
+   and desktop are deliberately DIFFERENT; desktop windowing is unchanged.
+2. Mobile sizing & layout: right-size elements on small screens — notably the
+   slightly oversized lion / AskConsole trigger icon — with comfortable touch
+   targets (44px+) and a tidy responsive pass across breakpoints. No desktop
+   sizing changes.
+3. Copy rework (de-AI the voice): rewrite user-facing copy (src/content/site.ts
+   and the content it feeds) to sound natural, human, punchy and professional —
+   first-person, specific, a little understated. Remove AI tells and buzzwords;
+   keep positioning graspable in <10s. Copy stays in content files.
+4. Verification: confirm nav + sizing + copy across phone/tablet/desktop and both
+   themes, reduced-motion and no-flash bootstrap intact, desktop unregressed.
+
+## Non-goals (this cycle)
+- No redesign/rebrand or palette change; no change to the desktop windowing UX.
+- No new sections, blog/CMS, or changes to the data-driven content model.
+
+## Acceptance criteria
+- Mobile section switching works as full-view navigation with no stuck overlays
+  or horizontal scroll; desktop unchanged.
+- Lion/Ask icon and controls are correctly sized with good touch targets on
+  mobile; both themes correct.
+- Copy reads as human (not AI), punchy and professional; positioning lands in
+  <10s; no banned phrases; first-person warm voice preserved.
+- `npm run build` and `npm run typecheck` pass.
+
+## Constraints
+Same hard constraint as Cycle 1: LIVE site, REVIEW-ONLY, all CLAUDE.md rules
+apply. Tasks 9-12 in tasks.json implement this cycle.

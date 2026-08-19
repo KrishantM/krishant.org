@@ -1,0 +1,175 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "Performance baseline + audit",
+        "description": "Measure current performance and identify the biggest costs before changing anything.",
+        "details": "Capture Lighthouse / Core Web Vitals for the homepage (dev and production build). Identify heavy client components, Framer Motion usage, font loading (next/font), unoptimized images, and bundle size contributors. Record a short baseline in ARCHITECTURE.md or a perf note. This task only measures and documents; no refactors yet.",
+        "testStrategy": "A written baseline (numbers + the top offenders) exists. npm run build succeeds. No code behavior changes.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-06-06T02:42:31.437Z"
+      },
+      {
+        "id": "2",
+        "title": "Reduce client-component / hydration cost",
+        "description": "Convert client components to Server Components where interactivity isn't needed; cut unnecessary hydration and re-renders.",
+        "details": "Using the audit, move presentational sections to Server Components, push 'use client' down to the smallest interactive leaves, and remove needless state/effects. Preserve the AskConsole hero, theme toggle, and Signature animation behavior. Theme via tokens only; never break the no-flash theme bootstrap in layout.tsx.",
+        "testStrategy": "Measurable hydration/bundle reduction vs baseline. Both themes intact, no theme flash. npm run build && npm run typecheck pass.",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-06-06T03:13:35.667Z"
+      },
+      {
+        "id": "3",
+        "title": "Optimize fonts, images, and animation",
+        "description": "Trim font and image weight and reduce Framer Motion overhead.",
+        "details": "Ensure next/font is used efficiently (subset, preload only what's needed across Fraunces/Inter/Caveat/JetBrains Mono). Optimize/convert images and use next/image where applicable. Reduce Framer Motion to essential, reduced-motion-aware animation; prefer CSS where cheaper. Keep the warm/cinematic feel.",
+        "testStrategy": "Improved LCP and reduced transferred bytes vs baseline. prefers-reduced-motion fully respected. Build + typecheck pass.",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-06-06T03:14:31.623Z"
+      },
+      {
+        "id": "4",
+        "title": "Bundle analysis and dependency trim",
+        "description": "Analyze the bundle and remove or code-split heavy dependencies.",
+        "details": "Run a bundle analysis, identify large deps, and code-split or remove what isn't needed on first paint. Avoid adding new dependencies; prefer the existing shared primitives.",
+        "testStrategy": "Smaller first-load JS vs baseline. Build + typecheck pass; no visual regressions.",
+        "priority": "medium",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-06-06T11:43:52.061Z"
+      },
+      {
+        "id": "5",
+        "title": "Verify Credentials structure (PwC / certs / work cleanly separated)",
+        "description": "Ensure credentials remain data-driven and correctly separated per CONTEXT/CLAUDE rules.",
+        "details": "Confirm PwC (high-level only, from pwc.statement), certifications (AWS SAA-C03, CLF-C02, future Azure), and selected work are distinct, data-driven blocks. No venture/cert facts hardcoded in components. No confidential PwC/client detail anywhere. Adding a cert stays a one-object change in certifications.ts.",
+        "testStrategy": "Add a dummy cert object -> appears via data only. Grep confirms no hardcoded cert facts and no 'venture hub' phrase. Build + typecheck pass.",
+        "priority": "medium",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-06-06T11:30:55.090Z"
+      },
+      {
+        "id": "6",
+        "title": "Sharpen homepage positioning (<10s)",
+        "description": "Tighten the homepage messaging so the value (AI + cloud architecture + systems thinking to modernize dated workflows) lands in under 10 seconds.",
+        "details": "Edit copy in src/content/site.ts only (not component logic). First-person, warm, tight. Credentials stay a credibility layer, not the headline. No resume phrasing, no 'venture hub'.",
+        "testStrategy": "5-second read test conveys the positioning. Build + typecheck pass.",
+        "priority": "medium",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-06-06T02:42:31.426Z"
+      },
+      {
+        "id": "7",
+        "title": "SEO pass",
+        "description": "Complete metadata, OpenGraph, sitemap/robots, and semantic structure.",
+        "details": "Verify per-route metadata, the dynamic OG image (opengraph-image.tsx), sitemap/robots, and semantic HTML. Ensure accessible, keyboard-reachable controls and aria-labels where needed.",
+        "testStrategy": "Lighthouse SEO + a11y scores strong. OG image renders for shared links. Build + typecheck pass.",
+        "priority": "medium",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-06-06T11:49:21.707Z"
+      },
+      {
+        "id": "8",
+        "title": "Final verification across both themes and breakpoints",
+        "description": "Confirm performance gains hold and nothing regressed visually or in accessibility.",
+        "details": "Re-measure Web Vitals vs baseline. Check warm-dark + warm-light themes, mobile/desktop breakpoints, reduced-motion, and the no-flash theme bootstrap. Confirm identity preserved.",
+        "testStrategy": "Measurable improvement vs task 1 baseline; both themes and breakpoints correct. npm run build && npm run typecheck pass.",
+        "priority": "low",
+        "dependencies": [
+          "2",
+          "3",
+          "4"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-06-06T11:54:02.149Z"
+      },
+      {
+        "id": "9",
+        "title": "Mobile navigation: switch full views instead of overlapping windows",
+        "description": "On mobile the desktop 'windows' overlay metaphor breaks â€” section/tab switching doesn't work well. Make mobile a distinct experience where tapping a nav item switches to a single full-screen view rather than an overlapping draggable window.",
+        "details": "Branch behaviour by breakpoint in src/components/windows/ (WindowsProvider.tsx, WindowManager.tsx, Window.tsx) and src/components/layout/Sidebar.tsx. Desktop keeps the current floating-window/console metaphor. On mobile (below the md breakpoint) render the active section as ONE full-screen view that replaces the console â€” no overlapping windows, no pointer-events fall-through, no drag/resize â€” with an obvious back/close to the console and a working way to move between sections (Ventures / Map / Credentials / About / Connect). Keep window/section state in WindowsProvider and reuse the existing views/* (no duplicated content). Tokens only (both themes), preserve reduced-motion and the no-flash theme bootstrap.",
+        "testStrategy": "On a phone viewport, tapping each nav item switches cleanly to that full view and back, with no stuck overlays, dead pointer zones, or horizontal scroll. Desktop windowing is unchanged. npm run build && npm run typecheck pass.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-06-13T02:18:17.806Z"
+      },
+      {
+        "id": "10",
+        "title": "Mobile sizing & layout pass (incl. oversized lion/Ask icon)",
+        "description": "Right-size elements on mobile. The lion chat / AskConsole trigger icon is slightly oversized; do a responsive sizing sweep so icons, touch targets, and the console feel balanced on small screens.",
+        "details": "Right-size the lion/Ask trigger (src/components/hero/AskConsole.tsx, ConsoleSurface.tsx, and src/components/layout/Sidebar.tsx / SidebarIcons.tsx) on mobile â€” slightly smaller and balanced with neighbours, with comfortable (44px+) touch targets. Sweep mobile breakpoints for oversized or cramped elements across the console/hero, sidebar, and view content; fix spacing and font scale with responsive token-driven sizing (no raw hex, both themes). Do not change desktop sizing. Preserve the warm/cinematic identity, Signature motif, and reduced-motion.",
+        "testStrategy": "On phone widths the lion/Ask icon and controls are appropriately sized with comfortable touch targets; no overflow, clipping, or horizontal scroll; desktop unchanged; both themes correct. npm run build && npm run typecheck pass.",
+        "priority": "high",
+        "dependencies": [
+          "9"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-06-13T02:59:22.408Z"
+      },
+      {
+        "id": "11",
+        "title": "Copy rework: make the voice human, not AI",
+        "description": "The site copy currently reads as obviously AI-generated. Rewrite it to sound natural, human, punchy and professional â€” first-person and warm, confident and concise, with no buzzword soup or generic AI phrasing.",
+        "details": "Rewrite user-facing copy in src/content/site.ts (meta description, nav descriptions, console/hero copy, CTAs) and the data-driven content it feeds (src/content/ventures.ts / certifications.ts wording where it reads as filler). Kill AI tells: 'leverage', 'passionate about', 'cutting-edge', 'seamless', 'in today's world', the vague 'systems thinking to rebuild dated workflows' framing, hedging, and rule-of-three padding. Make it sound like Krishant talking â€” sharp, specific, a little understated, professional. Keep positioning graspable in under 10 seconds. Copy stays in the content files (never hardcode into components), no 'venture hub', no confidential PwC detail, first-person warm voice per CLAUDE.md. Update assistant wording (src/lib/assistant.ts / llm-context.ts) only where it surfaces to users.",
+        "testStrategy": "A fresh reader finds the copy natural and human (not AI-sounding), punchy and professional; positioning lands in <10s; no banned phrases; voice consistent across sections. npm run build && npm run typecheck pass.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-06-13T00:00:00.000Z"
+      },
+      {
+        "id": "12",
+        "title": "Mobile uplift verification across devices and themes",
+        "description": "Confirm the mobile uplift holds together: navigation, sizing, and copy, across breakpoints and both themes, with nothing regressed on desktop.",
+        "details": "Walk the mobile experience end to end: full-view nav switching (task 9), element/icon sizing and touch targets (task 10), and the reworked copy (task 11) on small / medium / desktop breakpoints in warm-dark and warm-light, with reduced-motion and the no-flash bootstrap intact. Fix any seams found. Document the mobile QA path.",
+        "testStrategy": "Mobile nav, sizing, and copy all correct on phone + tablet + desktop widths and both themes; desktop unchanged; no console errors. npm run build && npm run typecheck pass.",
+        "priority": "low",
+        "dependencies": [
+          "9",
+          "10",
+          "11"
+        ],
+        "status": "done",
+        "subtasks": [],
+        "updatedAt": "2026-06-13T03:18:45.400Z"
+      }
+    ],
+    "metadata": {
+      "version": "1.0.0",
+      "lastModified": "2026-06-13T03:18:45.400Z",
+      "taskCount": 12,
+      "completedCount": 12,
+      "tags": [
+        "master"
+      ]
+    }
+  }
+}
