@@ -9,8 +9,7 @@ import { Badge } from "@/components/ui/Badge";
  * The flagship ventures, given deliberate weight as large feature cards. The
  * first entry leads and spans the full width; the rest sit beside each other
  * beneath it. Data-driven via `featuredVentures` — reorder the content file to
- * change which venture leads. CreatorHQ and its sub-brands live in their own
- * ecosystem section.
+ * change which venture leads.
  */
 export function FlagshipVentures() {
   return (

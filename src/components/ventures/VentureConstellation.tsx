@@ -15,22 +15,16 @@ import { site } from "@/content/site";
 type Pos = { x: number; y: number };
 
 const layout: Record<string, Pos> = {
-  center: { x: 50, y: 48 },
-  surya: { x: 50, y: 12 },
-  gradual: { x: 14, y: 30 },
-  hiko: { x: 86, y: 30 },
-  creatorhq: { x: 50, y: 74 },
-  trentwinshq: { x: 20, y: 92 },
-  lexxlittlehq: { x: 80, y: 92 },
+  center: { x: 50, y: 58 },
+  surya: { x: 50, y: 14 },
+  gradual: { x: 16, y: 34 },
+  hiko: { x: 84, y: 34 },
 };
 
 const connections: Array<{ from: string; to: string }> = [
   { from: "center", to: "surya" },
   { from: "center", to: "gradual" },
   { from: "center", to: "hiko" },
-  { from: "center", to: "creatorhq" },
-  { from: "creatorhq", to: "trentwinshq" },
-  { from: "creatorhq", to: "lexxlittlehq" },
 ];
 
 /** Edges that should glow when `active` is hovered/focused. */

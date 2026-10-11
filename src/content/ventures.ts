@@ -4,13 +4,12 @@ import type { Venture } from "@/types/venture";
  * THE single source of truth for ventures.
  *
  * To add a venture: append one object below. Everything (the showcase, the
- * constellation, the CreatorHQ map, and the detail pages) reads from here.
+ * constellation and the detail pages) reads from here.
  * Never hardcode venture content into components.
  *
- * Emphasis: Surya leads, with Gradual and Hiko alongside it as the flagship
- * ventures (`featured: true`). The first featured entry gets the lead card.
- * CreatorHQ is an umbrella / operating layer, and TrenTwinsHQ + LexxLittleHQ
- * sit under it (`parent: "creatorhq"`).
+ * Emphasis: Surya leads, then Gradual (previous startup), then Hiko (an
+ * earlier build). The first featured entry gets
+ * the lead card. `parent` is still supported for sub-brands if one is added.
  */
 export const ventures: Venture[] = [
   {
@@ -42,20 +41,20 @@ export const ventures: Venture[] = [
     slug: "gradual",
     url: "https://gradual.co.nz",
     externalUrl: "https://gradual.co.nz",
-    category: "AI / Learning / Career Development",
-    status: "Active",
-    summary: "AI-powered career development built for real outcomes.",
+    category: "AI / Career Development",
+    status: "Previous",
+    summary: "My previous startup. A career operating system for students.",
     description:
-      "Gradual builds the AI layer for career development. It's adaptive and personalised, and it's built to shift real outcomes rather than just track activity.",
+      "Gradual was a career operating system for NZ students and early-career people. An AI career copilot, CV scoring, a planner and an opportunities feed that all update each other, with a weekly pipeline pulling in 800+ opportunities from 7 sources. I built and ran it from 2025 to 2026.",
     role: "Founder / Builder",
     focusAreas: [
-      "AI-enabled learning",
-      "Career growth",
-      "Product strategy",
-      "Personal development systems",
-      "Human potential",
+      "AI career copilot",
+      "CV scoring",
+      "Data pipelines",
+      "Product design",
+      "Next.js and Firebase",
     ],
-    tags: ["AI", "Learning", "Careers", "Product"],
+    tags: ["AI", "Careers", "Product"],
     accent: "honey",
     featured: true,
     parent: null,
@@ -64,97 +63,24 @@ export const ventures: Venture[] = [
   {
     name: "Hiko",
     slug: "hiko",
-    url: "https://hiko.org.nz",
-    externalUrl: "https://hiko.org.nz",
-    category: "Consumer / Local / Social Coordination",
-    status: "Active",
-    summary: "Find what's on. Plan it with people.",
+    url: null,
+    externalUrl: null,
+    category: "Consumer / Outdoors",
+    status: "Previous",
+    summary: "A trip planner for New Zealand's tracks and huts.",
     description:
-      "Hiko is a local discovery and social coordination app. It makes it easy to find what's happening nearby, and actually get people to show up.",
-    role: "Founder / Builder",
+      "Hiko was a hiking planner for New Zealand: tracks, huts and campsites from the Department of Conservation, with track status, weather and trip planning. I was the technical co-founder and built the data pipeline and the app.",
+    role: "Technical Co-founder",
     focusAreas: [
-      "Local discovery",
-      "Social coordination",
-      "Consumer behaviour",
-      "Community systems",
-      "Experience design",
+      "Data pipelines",
+      "API integration",
+      "Mobile app",
+      "Outdoor planning",
     ],
-    tags: ["Consumer", "Local", "Social", "Community"],
+    tags: ["Consumer", "Outdoors", "Data"],
     accent: "orange",
     featured: true,
     parent: null,
-    hasInternalPage: true,
-  },
-  {
-    name: "CreatorHQ",
-    slug: "creatorhq",
-    url: null,
-    externalUrl: null,
-    category: "Creator Infrastructure / Operating Layer",
-    status: "Active",
-    summary: "Infrastructure and operating systems for creator-led brands.",
-    description:
-      "CreatorHQ is the operating layer behind TrenTwinsHQ and LexxLittleHQ. Shared content systems, audience infrastructure, and the operational backbone each brand runs on.",
-    role: "Builder / Operator",
-    focusAreas: [
-      "Creator infrastructure",
-      "Audience systems",
-      "Media operations",
-      "Brand growth",
-      "Digital operating systems",
-    ],
-    tags: ["Creator", "Infrastructure", "Media", "Operations"],
-    accent: "copper",
-    featured: false,
-    parent: null,
-    hasInternalPage: true,
-  },
-  {
-    name: "TrenTwinsHQ",
-    slug: "trentwinshq",
-    url: "https://trentwinshq.com",
-    externalUrl: "https://trentwinshq.com",
-    category: "Creator-Led Media / Community",
-    status: "Active",
-    summary: "Creator-led media and community, running on CreatorHQ.",
-    description:
-      "TrenTwinsHQ is a creator-led media and community brand on the CreatorHQ platform. Content, audience, and community built to grow.",
-    role: "Builder / Operator",
-    focusAreas: [
-      "Creator-led brand",
-      "Community",
-      "Content systems",
-      "Audience engagement",
-      "Media infrastructure",
-    ],
-    tags: ["Creator", "Media", "Community"],
-    accent: "caramel",
-    featured: false,
-    parent: "creatorhq",
-    hasInternalPage: true,
-  },
-  {
-    name: "LexxLittleHQ",
-    slug: "lexxlittlehq",
-    url: "https://lexxlittle.com",
-    externalUrl: "https://lexxlittle.com",
-    category: "Creator-Led Media / Community",
-    status: "Active",
-    summary: "Creator-led brand on CreatorHQ, audience-first.",
-    description:
-      "LexxLittleHQ is a creator-led brand on the CreatorHQ platform. Audience-first content and community, on the same infrastructure backbone as TrenTwinsHQ.",
-    role: "Builder / Operator",
-    focusAreas: [
-      "Creator-led brand",
-      "Community",
-      "Content systems",
-      "Audience engagement",
-      "Media infrastructure",
-    ],
-    tags: ["Creator", "Media", "Community"],
-    accent: "gold",
-    featured: false,
-    parent: "creatorhq",
     hasInternalPage: true,
   },
 ];
@@ -163,7 +89,7 @@ export const ventures: Venture[] = [
 /* Derived helpers. Keep selection logic out of components.            */
 /* ------------------------------------------------------------------ */
 
-/** Flagship ventures (Gradual, Hiko) that lead the Ventures section. */
+/** Featured ventures (Surya, Gradual, Hiko) that lead the Ventures section. */
 export const featuredVentures = ventures.filter((v) => v.featured);
 
 /** Top-level ventures (no parent). */

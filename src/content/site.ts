@@ -15,15 +15,14 @@ export const site = {
   meta: {
     title: "Krishant Maharaj",
     description:
-      "Krishant Maharaj is building Surya, an AI operator that runs the whole business, from Aotearoa New Zealand. Real products built with AI and cloud architecture.",
+      "Krishant Maharaj is an AI engineer and solution architect building Surya, an AI operator that runs the whole business, from Aotearoa New Zealand.",
     ogImageAlt: "Krishant Maharaj, krishant.org",
   },
 
   contact: {
     email: "krishantm7@gmail.com",
     linkedin: "https://www.linkedin.com/in/krishant-maharaj",
-    /** No public repository yet. Replace when one exists. */
-    github: null as string | null,
+    github: "https://github.com/KrishantM" as string | null,
   },
 
   /**
@@ -73,7 +72,7 @@ export const site = {
     name: "Krishant Maharaj",
     headline: "I build AI that actually runs things.",
     subline:
-      "Right now that's Surya, an AI operator that plans, builds and runs the whole business with you. Gradual and Hiko sit alongside it.",
+      "Right now that's Surya, an AI operator that plans, builds and runs the whole business with you. By day I build agentic systems as an AI engineer and solution architect at PwC.",
     /** Copy for the interactive "ask" console in the hero. */
     console: {
       placeholder: "Ask me anything about my work...",
@@ -83,7 +82,7 @@ export const site = {
         { label: "What are you building?", query: "what are you building" },
         { label: "Tell me about Surya", query: "tell me about surya" },
         { label: "Tell me about Gradual", query: "tell me about gradual" },
-        { label: "Tell me about Hiko", query: "tell me about hiko" },
+        { label: "What do you do at PwC?", query: "what do you do at pwc" },
         { label: "What's your background?", query: "what is your background" },
         { label: "How can I reach you?", query: "how can i reach you" },
       ],
@@ -94,29 +93,24 @@ export const site = {
     ventures: {
       eyebrow: "01 · what I'm building",
       title: "Ventures",
-      lede: "Surya has most of my attention right now. It's an AI operator that plans, builds and runs a business with you. Gradual and Hiko sit alongside it. Real products, not slideware.",
-    },
-    creatorHq: {
-      eyebrow: "02 · the ecosystem",
-      title: "The CreatorHQ ecosystem",
-      lede: "CreatorHQ is the operating backbone behind TrenTwinsHQ and LexxLittleHQ. Shared content systems, audience infrastructure, and digital operations in one layer.",
+      lede: "Surya has most of my attention right now. It's an AI operator that plans, builds and runs a business with you. Gradual was my previous startup, and Hiko came before it. Real products, not slideware.",
     },
     constellation: {
-      eyebrow: "03 · how it all connects",
+      eyebrow: "02 · how it all connects",
       title: "The map in my head",
       lede: "Everything I'm building orbits the same centre. Have a play with the map. Hover a node for the gist, open one to go deeper.",
     },
     credentials: {
-      eyebrow: "04 · the credibility bit",
+      eyebrow: "03 · the credibility bit",
       title: "Credentials",
       lede: "What sits underneath the ambition: professional experience and certified technical depth. Context, not a CV.",
     },
     who: {
-      eyebrow: "05 · the person behind it",
+      eyebrow: "04 · the person behind it",
       title: "Who is Krishant?",
     },
     connect: {
-      eyebrow: "06 · say hello",
+      eyebrow: "05 · say hello",
       title: "Let's talk",
       lede: "Building something, weighing up a collaboration, or just curious? I'd love to hear from you.",
     },
@@ -128,9 +122,9 @@ export const site = {
     note: "A quick snapshot of what's got my attention right now.",
     items: [
       { label: "Building", value: "Surya, an AI operator that runs the whole business" },
-      { label: "Also building", value: "Gradual and Hiko, in parallel and on purpose" },
+      { label: "Day job", value: "AI engineer and solution architect at PwC" },
       { label: "Exploring", value: "AI agents that earn the trust to act on your behalf" },
-      { label: "Growing", value: "The CreatorHQ ecosystem and its brands" },
+      { label: "Certified", value: "AWS Solutions Architect and Databricks Platform Architect" },
       { label: "Based in", value: "Aotearoa New Zealand" },
     ],
   },
@@ -140,7 +134,7 @@ export const site = {
     lead: "I'm drawn to the gap between how things work now and how they'd work if someone rebuilt them properly. Better software, clearer incentives, and the patience to actually ship.",
     body: [
       "I build real things. Most of what I make starts with a process that's clearly broken and a stubborn belief it can be done right. Cleaner architecture, AI that earns its place, and something that makes commercial sense.",
-      "Most of that goes into Surya at the moment, which I'm building with my brother. My range runs from cloud and architecture through to creator infrastructure and consumer products. The throughline is curiosity, taste, and a habit of shipping. I work mostly from Aotearoa New Zealand.",
+      "By day I'm an AI engineer and solution architect at PwC, building agentic systems for large organisations. The rest goes into Surya, which I'm building with my brother. Before that came Gradual and Hiko. The throughline is curiosity, taste, and a habit of shipping. I work mostly from Aotearoa New Zealand.",
     ],
     principles: [
       { title: "Build real things", note: "Shipped products beat decks and good intentions." },
@@ -153,7 +147,7 @@ export const site = {
   },
 
   footer: {
-    tagline: "Software, systems, and digital ventures, built from Aotearoa New Zealand.",
+    tagline: "AI products and systems, built from Aotearoa New Zealand.",
     note: "Designed and built by Krishant Maharaj.",
     signoff: "Thanks for stopping by",
   },

@@ -1,4 +1,4 @@
-import { getVenture, venturesByParent } from "@/content/ventures";
+import { getVenture } from "@/content/ventures";
 import { site } from "@/content/site";
 import { getAccentHex } from "@/lib/utils";
 import type { WindowKey } from "@/components/windows/WindowsProvider";
@@ -71,17 +71,6 @@ export function pickActions(raw: string): AskAction[] {
       ...(link ? [link] : []),
       { kind: "window", label: "See it in context", key: "ventures" },
     ];
-  }
-
-  if (has(q, "creatorhq", "creator", "trent", "lexx", "media", "brand")) {
-    const children = venturesByParent("creatorhq");
-    const actions: AskAction[] = [];
-    children.forEach((c) => {
-      const l = ventureLink(c.slug);
-      if (l) actions.push(l);
-    });
-    actions.push({ kind: "window", label: "Explore the ecosystem", key: "ventures" });
-    return actions;
   }
 
   if (

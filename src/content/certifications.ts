@@ -24,6 +24,30 @@ export const certifications: Certification[] = [
     category: "Cloud Foundations",
     credentialUrl: null,
   },
+  {
+    name: "Azure Databricks Platform Architect",
+    provider: "Databricks",
+    code: "Platform Architect",
+    status: "Active",
+    category: "Data Platform Architecture",
+    credentialUrl: null,
+  },
+  {
+    name: "Microsoft Certified: Azure Fundamentals",
+    provider: "Microsoft",
+    code: "AZ-900",
+    status: "Active",
+    category: "Cloud Foundations",
+    credentialUrl: null,
+  },
+  {
+    name: "Databricks Fundamentals",
+    provider: "Databricks",
+    code: "Fundamentals",
+    status: "Active",
+    category: "Data Platforms",
+    credentialUrl: null,
+  },
 ];
 
 /**
@@ -31,19 +55,19 @@ export const certifications: Certification[] = [
  * providers are added so the component needs no edit.
  */
 export const certificationsFooterNote =
-  "Built to grow. Azure and further certifications slot in as they land.";
+  "Cloud, data and AI architecture, with more on the way.";
 
 /**
  * Capability pillars shaped by professional experience + certified depth.
  * Presented as a restrained signal — not a résumé skill list.
  */
 export const skillPillars: string[] = [
-  "Cloud architecture",
+  "Agentic engineering",
+  "AI and cloud architecture",
+  "Context engineering",
   "Security thinking",
   "Enterprise delivery",
-  "Consulting & communication",
   "Systems thinking",
-  "Technical strategy",
 ];
 
 /**
@@ -53,17 +77,15 @@ export const skillPillars: string[] = [
  */
 export const pwc = {
   name: "PwC",
-  role: "Professional background",
+  role: "Day job",
   statement:
-    "Alongside my independent work, my time at PwC shaped how I think about cloud, architecture, security, and delivery at scale, working inside the kind of organisational complexity most product builders never see.",
+    "By day I'm an AI engineer and solution architect at PwC New Zealand, in the Digital Strategy & Architecture team. I build agentic systems and cloud architecture for large organisations, which means shipping AI inside the kind of security, governance and scale most product builders never see.",
   themes: [
-    "Cloud",
-    "Architecture",
-    "Security",
-    "Consulting",
-    "Stakeholder communication",
-    "Enterprise technology",
-    "Delivery",
-    "Systems thinking",
+    "Agentic engineering",
+    "AI architecture",
+    "Azure and AWS",
+    "Data platforms",
+    "Security and governance",
+    "Enterprise delivery",
   ],
 } as const;

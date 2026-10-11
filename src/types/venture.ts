@@ -14,7 +14,7 @@ export type AccentKey =
   | "gold"
   | "copper";
 
-export type VentureStatus = "Active" | "Building" | "Exploring";
+export type VentureStatus = "Active" | "Building" | "Exploring" | "Previous";
 
 export interface Venture {
   /** Display name, e.g. "Gradual". */
@@ -42,7 +42,7 @@ export interface Venture {
   accent: AccentKey;
   /** Whether the venture leads the grid / constellation. */
   featured: boolean;
-  /** Slug of a parent venture (e.g. CreatorHQ) when this is a sub-brand. */
+  /** Slug of a parent venture when this is a sub-brand. */
   parent: string | null;
   /** Whether an internal /ventures/[slug] detail page should be rendered. */
   hasInternalPage: boolean;
