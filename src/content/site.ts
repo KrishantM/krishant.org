@@ -72,7 +72,7 @@ export const site = {
     name: "Krishant Maharaj",
     headline: "I build AI that actually runs things.",
     subline:
-      "Right now that's Surya, an AI operator that plans, builds and runs the whole business with you. By day I build agentic systems as an AI engineer and solution architect at PwC.",
+      "Right now that's Surya, an AI operator that plans, builds and runs a business with you. By day I'm an AI engineer at PwC, building agentic systems for large organisations.",
     /** Copy for the interactive "ask" console in the hero. */
     console: {
       placeholder: "Ask me anything about my work...",

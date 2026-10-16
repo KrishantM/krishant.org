@@ -34,7 +34,7 @@ export function ConsoleSurface() {
         </h1>
 
         <p
-          className="mx-auto mt-5 animate-fade-up text-pretty text-base leading-relaxed text-ink-muted sm:whitespace-nowrap sm:text-lg"
+          className="mx-auto mt-5 max-w-2xl animate-fade-up text-balance text-base leading-relaxed text-ink-muted sm:text-lg"
           style={{ animationDelay: "0.21s" }}
         >
           {hero.subline}
