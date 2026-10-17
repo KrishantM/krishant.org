@@ -79,7 +79,7 @@ export const pwc = {
   name: "PwC",
   role: "Day job",
   statement:
-    "By day I'm an AI engineer and solution architect at PwC New Zealand, in the Digital Strategy & Architecture team. I build agentic systems and cloud architecture for large organisations, which means shipping AI inside the kind of security, governance and scale most product builders never see.",
+    "By day I'm an AI engineer and solution architect at PwC New Zealand, in the Digital Strategy & Architecture team. I build agentic systems, data platforms and cloud architecture for large organisations, which means shipping AI inside the kind of security, governance and scale most product builders never see.",
   themes: [
     "Agentic engineering",
     "AI architecture",

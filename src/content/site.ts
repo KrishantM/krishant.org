@@ -72,7 +72,7 @@ export const site = {
     name: "Krishant Maharaj",
     headline: "I build AI that actually runs things.",
     subline:
-      "Right now that's Surya, an AI operator that plans, builds and runs a business with you. By day I'm an AI engineer at PwC, building agentic systems for large organisations.",
+      "Right now that's Surya, an AI operator that plans, builds and runs a business with you. By day I'm an AI engineer and solution architect at PwC, building agentic systems and data platforms for large organisations.",
     /** Copy for the interactive "ask" console in the hero. */
     console: {
       placeholder: "Ask me anything about my work...",
@@ -134,7 +134,7 @@ export const site = {
     lead: "I'm drawn to the gap between how things work now and how they'd work if someone rebuilt them properly. Better software, clearer incentives, and the patience to actually ship.",
     body: [
       "I build real things. Most of what I make starts with a process that's clearly broken and a stubborn belief it can be done right. Cleaner architecture, AI that earns its place, and something that makes commercial sense.",
-      "By day I'm an AI engineer and solution architect at PwC, building agentic systems for large organisations. The rest goes into Surya, which I'm building with my brother. Before that came Gradual and Hiko. The throughline is curiosity, taste, and a habit of shipping. I work mostly from Aotearoa New Zealand.",
+      "By day I'm an AI engineer and solution architect at PwC, building agentic systems and data platforms for large organisations. The rest goes into Surya, which I'm building with my brother. Before that came Gradual and Hiko. The throughline is curiosity, taste, and a habit of shipping. I work mostly from Aotearoa New Zealand.",
     ],
     principles: [
       { title: "Build real things", note: "Shipped products beat decks and good intentions." },
