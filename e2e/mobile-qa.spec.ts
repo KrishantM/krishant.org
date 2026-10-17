@@ -105,7 +105,7 @@ test.describe("Hero copy — task 11", () => {
     await page.goto("/");
     // Partial match avoids Unicode apostrophe edge-cases while still verifying
     // the headline is the Surya-led rewrite, not the old AI-cliché copy.
-    await expect(page.locator("h1")).toContainText("I build AI that actually runs things");
+    await expect(page.locator("h1")).toContainText("I like building stuff");
   });
 
   test("subline is present", async ({ page }) => {
@@ -373,7 +373,7 @@ test.describe("Desktop no-regression", () => {
 
   test("hero h1 and subline are present on desktop", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator("h1")).toContainText("I build AI that actually runs things");
+    await expect(page.locator("h1")).toContainText("I like building stuff");
     await expect(
       page
         .locator("p")
@@ -438,7 +438,7 @@ test.describe("Reduced-motion", () => {
     });
     const page = await ctx.newPage();
     await page.goto("/");
-    await expect(page.locator("h1")).toContainText("I build AI that actually runs things");
+    await expect(page.locator("h1")).toContainText("I like building stuff");
     await ctx.close();
   });
 
