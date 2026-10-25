@@ -7,8 +7,8 @@ import type { Venture } from "@/types/venture";
  * constellation and the detail pages) reads from here.
  * Never hardcode venture content into components.
  *
- * Emphasis: Surya leads, then Gradual (previous startup), then Hiko (an
- * earlier build). The first featured entry gets
+ * Emphasis: Surya leads, then Project Eval (building now), then Gradual
+ * (previous startup), then Hiko (an earlier build). The first featured entry gets
  * the lead card. `parent` is still supported for sub-brands if one is added.
  */
 export const ventures: Venture[] = [
@@ -32,6 +32,30 @@ export const ventures: Venture[] = [
     ],
     tags: ["AI", "Agents", "Startups", "Operations"],
     accent: "amber",
+    featured: true,
+    parent: null,
+    hasInternalPage: true,
+  },
+  {
+    name: "Project Eval",
+    slug: "project-eval",
+    url: null,
+    externalUrl: null,
+    category: "AI / Agent Evaluation",
+    status: "Building",
+    summary: "Does your AI agent actually help? Project Eval measures it.",
+    description:
+      "Project Eval is a self-hosted platform that evaluates AI agents and measures their impact. It tracks what people actually do with an agent's output, grades quality with an LLM judge calibrated against human review, and compares the same work with and without AI. It's built on LangChain and LangGraph, with a containerised Kubernetes infrastructure so it can run inside a company's own environment.",
+    role: "Founder / Builder",
+    focusAreas: [
+      "Agent evaluation",
+      "LLM-judge grading",
+      "Human-in-the-loop calibration",
+      "LangChain and LangGraph",
+      "Kubernetes",
+    ],
+    tags: ["AI", "Agents", "Evaluation", "Infrastructure"],
+    accent: "gold",
     featured: true,
     parent: null,
     hasInternalPage: true,
@@ -89,7 +113,7 @@ export const ventures: Venture[] = [
 /* Derived helpers. Keep selection logic out of components.            */
 /* ------------------------------------------------------------------ */
 
-/** Featured ventures (Surya, Gradual, Hiko) that lead the Ventures section. */
+/** Featured ventures (Surya, Project Eval, Gradual, Hiko) that lead the Ventures section. */
 export const featuredVentures = ventures.filter((v) => v.featured);
 
 /** Top-level ventures (no parent). */

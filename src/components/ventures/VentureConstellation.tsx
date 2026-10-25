@@ -19,12 +19,14 @@ const layout: Record<string, Pos> = {
   surya: { x: 50, y: 14 },
   gradual: { x: 16, y: 34 },
   hiko: { x: 84, y: 34 },
+  "project-eval": { x: 82, y: 86 },
 };
 
 const connections: Array<{ from: string; to: string }> = [
   { from: "center", to: "surya" },
   { from: "center", to: "gradual" },
   { from: "center", to: "hiko" },
+  { from: "center", to: "project-eval" },
 ];
 
 /** Edges that should glow when `active` is hovered/focused. */

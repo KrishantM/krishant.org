@@ -57,6 +57,10 @@ export function pickActions(raw: string): AskAction[] {
     ];
   }
 
+  if (has(q, "project eval", "evaluat", "eval")) {
+    return [{ kind: "window", label: "See it in context", key: "ventures" }];
+  }
+
   if (has(q, "gradual")) {
     const link = ventureLink("gradual");
     return [

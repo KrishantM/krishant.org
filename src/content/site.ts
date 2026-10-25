@@ -93,7 +93,7 @@ export const site = {
     ventures: {
       eyebrow: "01 · what I'm building",
       title: "Ventures",
-      lede: "Surya has most of my attention right now. It's an AI operator that plans, builds and runs a business with you. Gradual was my previous startup, and Hiko came before it. Real products, not slideware.",
+      lede: "Surya has most of my attention right now. It's an AI operator that plans, builds and runs a business with you. Alongside it I'm building Project Eval, which measures whether AI agents actually help. Gradual was my previous startup, and Hiko came before it. Real products, not slideware.",
     },
     constellation: {
       eyebrow: "02 · how it all connects",
@@ -134,7 +134,7 @@ export const site = {
     lead: "I'm drawn to the gap between how things work now and how they'd work if someone rebuilt them properly. Better software, clearer incentives, and the patience to actually ship.",
     body: [
       "I build real things. Most of what I make starts with a process that's clearly broken and a stubborn belief it can be done right. Cleaner architecture, AI that earns its place, and something that makes commercial sense.",
-      "By day I'm an AI engineer and solution architect at PwC, building agentic systems and data platforms for large organisations. The rest goes into Surya, which I'm building with my brother. Before that came Gradual and Hiko. The throughline is curiosity, taste, and a habit of shipping. I work mostly from Aotearoa New Zealand.",
+      "By day I'm an AI engineer and solution architect at PwC, building agentic systems and data platforms for large organisations. The rest goes into Surya, which I'm building with my brother, and Project Eval, a platform that measures whether AI agents actually help. Before that came Gradual and Hiko. The throughline is curiosity, taste, and a habit of shipping. I work mostly from Aotearoa New Zealand.",
     ],
     principles: [
       { title: "Build real things", note: "Shipped products beat decks and good intentions." },

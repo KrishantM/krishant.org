@@ -38,7 +38,7 @@ test('Escape also closes a venture detail without a 404', async ({ page }) => {
 });
 
 test('every internal venture page renders and closes cleanly', async ({ page }) => {
-  for (const slug of ['surya', 'gradual', 'hiko']) {
+  for (const slug of ['surya', 'project-eval', 'gradual', 'hiko']) {
     const res = await page.goto(`/ventures/${slug}`);
     expect(res?.status(), `${slug} should not 404`).toBeLessThan(400);
     await expect(page.locator('body')).not.toContainText(NOT_FOUND);
@@ -61,7 +61,7 @@ test('no em dashes in user-facing copy', async ({ page }) => {
   const body = await page.locator('body').innerText();
   expect(body, 'em dash found in rendered copy').not.toContain('—');
 
-  for (const slug of ['surya', 'gradual', 'hiko']) {
+  for (const slug of ['surya', 'project-eval', 'gradual', 'hiko']) {
     await page.goto(`/ventures/${slug}`);
     const detail = await page.locator('body').innerText();
     expect(detail, `em dash found on /ventures/${slug}`).not.toContain('—');
