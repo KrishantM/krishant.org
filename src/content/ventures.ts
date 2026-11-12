@@ -22,7 +22,7 @@ export const ventures: Venture[] = [
     summary: "Open tools for working with AI agents, and the app that brings them together.",
     description:
       "Surya started as one AI operator. It is now a family of open tools for working with AI agents, and Surya Unite, the paid app that brings them together. Unite is in development and its source is private.",
-    role: "Co-founder / CEO",
+    role: "Founder / CEO",
     focusAreas: [
       "Approval gates for agents",
       "Shared agent memory",
