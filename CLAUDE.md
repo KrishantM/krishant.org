@@ -69,9 +69,12 @@ It is **NOT**, and must never become:
   voice), `font-mono` (codes only), default sans (Inter). Don't add more faces.
 - Voice is **first-person and warm** — like Krishant talking, kept tight.
 - Reuse the shared primitives: `Section`, `Card`, `Badge`, `Button`, `Reveal`,
-  `Signature`, `ThemeToggle`. The hero is an interactive AI-style "ask" console
-  (`AskConsole`) whose answers come from `lib/assistant.ts`, built from the
-  content files — keep it data-driven, never hardcode venture/credential facts.
+  `Signature`, `ThemeToggle`. The hero holds the assistant (`components/assistant/`):
+  Ask (answers from the real public code, via the committed code index), Try
+  Surya Gates (real verdicts from `gates-demo.json`) and Fit check. Its facts
+  come from the content files and generated JSON. Never hardcode
+  venture/credential facts, and never index a repo outside the allowlist in
+  `lib/code-index/policy.ts`.
 - Keep animation in `Reveal` + the draw-on strokes + CSS; **always** respect
   `prefers-reduced-motion`. Never break the no-flash theme bootstrap in
   `layout.tsx`.
@@ -84,9 +87,15 @@ It is **NOT**, and must never become:
 ## Approved vocabulary
 
 - Identity: **Krishant** / **Krishant Maharaj**. Domain: **krishant.org**.
-- Nav (exactly): **Ventures · Credentials · Who is Krishant? · Connect**.
-- Section/nav label for active work: **Ventures**. For PwC + certs:
+- Nav (exactly): **Surya · How I build · Credentials · Connect** (changed in
+  the November 2026 overhaul, when the page became one scroll led by the
+  Surya family).
+- Surya data lives in `src/content/surya.ts`; the `Venture` model still
+  covers Surya, Project Eval, Gradual and Hiko. For PwC + certs:
   **Credentials**.
+- Surya Unite is in development with private source. Never call it available.
+- Kubernetes and LangChain/LangGraph: personal builds, internal designs and
+  proofs of concept. Never claim scaled production use.
 - Contact: email `krishantm7@gmail.com`, LinkedIn
   `https://www.linkedin.com/in/krishant-maharaj`.
 

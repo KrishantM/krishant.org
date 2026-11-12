@@ -102,10 +102,27 @@ Do **not** invent issue dates or credential URLs. Leave them omitted / `null`.
 
 ### Edit site-wide copy & links
 
-Edit **`src/content/site.ts`** — identity, navigation, hero copy, section
-headings, the "Who is Krishant?" copy, the **Currently** snapshot, contact
-links, location, and footer text all live there. The voice is first-person and
-warm by design.
+Edit **`src/content/site.ts`** — identity, navigation, hero copy, assistant
+copy, section headings, contact links, location, and footer text all live
+there. The voice is first-person and warm by design.
+
+### Edit the Surya family or "How I build"
+
+- **`src/content/surya.ts`** — one object per tool, with its tier (`live`,
+  `development`, `next`). A live tool's `repo` must be on the code-index
+  allowlist.
+- **`src/content/how-i-build.ts`** — each claim and its proofs. Code proofs
+  name a repo, path and line range and are pinned to the indexed commit.
+
+### Regenerate the assistant's data
+
+```bash
+npm run index:code   # public repos on the allowlist -> src/content/code-index.json
+npm run demo:gates   # real Surya Gates verdicts -> src/content/gates-demo.json
+npm run test:unit    # checks both, plus the sanitiser and proof links
+```
+
+Commit the generated JSON so every change to it is reviewable.
 
 ## Personality, theming & type
 
@@ -117,13 +134,13 @@ warm by design.
   raw hex.
 - **Signature accent:** amber (`#FFB454`) with a honey highlight (`#F6C453`).
 - **Type:** Fraunces (display/headings), Inter (body/UI), Caveat (handwritten
-  accents — the signature, eyebrows-as-marker, the Currently label, sign-off),
+  accents — the signature, eyebrows-as-marker, sign-off),
   JetBrains Mono (codes + technical bits). All loaded via `next/font`.
 - **Motif:** the hand-drawn `Signature` (logo, draws itself on) carries the
   personality. Keep it reduced-motion friendly.
-- **Hero:** an interactive AI-style "ask" console (`AskConsole` +
-  `lib/assistant.ts`) is the landing interaction; prompts resolve to curated,
-  data-driven answers with links and scroll actions.
+- **Hero:** the assistant, with three modes: Ask (answers quote the real
+  public code and link to the lines), Try Surya Gates (real classifier
+  verdicts) and Fit check (a job description mapped to evidence).
 
 ---
 
@@ -138,17 +155,25 @@ src/
     not-found.tsx
     opengraph-image.tsx     # dynamic OG image for shared links
     ventures/[slug]/page.tsx# data-driven venture detail pages
+    api/ask/route.ts        # the assistant's model-backed modes
   components/
-    layout/                 # Header, Footer, Section, Backdrop
-    hero/                   # Hero, HeroBackground, AskConsole (the ask console)
-    ventures/               # FlagshipVentures, VentureConstellation, CreatorHQMap
-    about/                  # WhoIsKrishant
-    credentials/            # CredentialsSection, PwCBlock, CertificationsBlock
+    layout/                 # SiteHeader, SiteFooter, Section, Backdrop
+    hero/                   # Hero
+    assistant/              # Assistant, AskMode, CodeCard, GatesDemo, FitCheck
+    surya/                  # SuryaFamily, ToolCard, SuryaOrbit, TryItButton
+    build/                  # HowIBuild
+    credentials/            # DayJob, Certifications
+    ventures/               # EarlierVentures
     contact/                # ContactCTA
-    ui/                     # Badge, Button, Card, Reveal
-  content/                  # ventures.ts, certifications.ts, site.ts  (single sources of truth)
-  lib/                      # utils.ts (cn, accent helpers)
-  types/                    # venture.ts, certification.ts
+    ui/                     # Badge, Button, Card, Reveal, Signature, ThemeToggle
+  content/                  # surya.ts, how-i-build.ts, ventures.ts, certifications.ts,
+                            # site.ts, plus generated JSON (code index, Gates demo)
+  lib/                      # utils, sanitise, retrieval, assistant, evidence, proof,
+                            # llm-context, code-index/policy
+  types/                    # venture.ts, certification.ts, surya.ts, proof.ts
+scripts/                    # build-code-index.mts, build-gates-demo.py
+tests/unit/                 # vitest
+e2e/                        # Playwright
 public/
   icon.svg
 ```
@@ -162,7 +187,8 @@ See **ARCHITECTURE.md** for the deeper rationale.
 High-level — full notes in **ARCHITECTURE.md**.
 
 1. **Push to GitHub**, then import the repo into Vercel. Framework preset:
-   _Next.js_ (auto-detected). No environment variables are required.
+   _Next.js_ (auto-detected). `ANTHROPIC_API_KEY` powers the assistant; without
+   it the page still works and the assistant says it isn't available.
 2. Vercel runs `npm run build` and deploys automatically on every push.
 3. **Add the domain** `krishant.org` (and `www.krishant.org`) in the Vercel
    project's _Domains_ settings.

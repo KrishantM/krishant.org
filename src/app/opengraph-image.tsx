@@ -56,20 +56,20 @@ export default function OpengraphImage() {
           <div
             style={{
               marginTop: 24,
-              fontSize: 34,
+              fontSize: 32,
               lineHeight: 1.3,
               color: "#b8a994",
               maxWidth: 920,
             }}
           >
-            I build software, systems, and a few ventures I genuinely believe in.
+            {site.hero.subline}
           </div>
         </div>
 
         <div style={{ display: "flex", gap: 40, fontSize: 24, color: "#847665" }}>
-          <span>Ventures</span>
-          <span>Credentials</span>
-          <span>Aotearoa New Zealand</span>
+          <span>Surya</span>
+          <span>How I build</span>
+          <span>{site.location}</span>
         </div>
       </div>
     ),

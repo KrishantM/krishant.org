@@ -2,10 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Fraunces, Caveat } from "next/font/google";
 import { site } from "@/content/site";
 import { Backdrop } from "@/components/layout/Backdrop";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { ConsoleSurface } from "@/components/hero/ConsoleSurface";
-import { WindowsProvider } from "@/components/windows/WindowsProvider";
-import { WindowManager } from "@/components/windows/WindowManager";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SiteFooter } from "@/components/layout/SiteFooter";
 import "./globals.css";
 
 // Three web fonts only — body (Inter), headings (Fraunces), handwriting
@@ -42,12 +40,17 @@ export const metadata: Metadata = {
   keywords: [
     "Krishant Maharaj",
     "Krishant",
-    "ventures",
-    "software",
-    "AI",
+    "Surya",
+    "Surya Gates",
+    "Surya Memory",
+    "Project Eval",
+    "AI engineer",
+    "solution architect",
+    "agentic engineering",
+    "Claude Agent SDK",
+    "LangGraph",
+    "Kubernetes",
     "cloud architecture",
-    "creator infrastructure",
-    "digital products",
     "New Zealand",
   ],
   alternates: { canonical: "/" },
@@ -82,8 +85,8 @@ const personSchema = {
   "@type": "Person",
   name: site.fullName,
   url: site.url,
-  sameAs: [site.contact.linkedin],
-  jobTitle: "Founder & Builder",
+  sameAs: [site.contact.linkedin, site.contact.github].filter(Boolean),
+  jobTitle: "AI engineer and solution architect",
   description: site.meta.description,
   email: site.contact.email,
 };
@@ -95,15 +98,9 @@ const personSchema = {
 const themeBootstrap = `(function(){var d=document.documentElement;d.classList.add('js');try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t='dark';}d.setAttribute('data-theme',t);}catch(e){d.setAttribute('data-theme','dark');}})();`;
 
 /**
- * Root shell. The site is a console-first OS:
- *   • Sidebar — fixed nav (left rail on desktop, bottom bar + corner floats
- *     on mobile). Each icon toggles a window.
- *   • ConsoleSurface — the persistent landing experience (the AskConsole);
- *     stays mounted so conversation state survives window open/close.
- *   • WindowManager — renders the open OS-style windows (draggable, focusable,
- *     z-stacked) above the console.
- *   • {children} — the active route. `/` renders null (bare desktop); deep
- *     pages like `/ventures/[slug]` render as a Panel overlay.
+ * Root shell: a fixed header with anchor links, the page, and the footer.
+ * The Backdrop sits behind everything. The theme bootstrap runs first so
+ * there is no flash of the wrong theme.
  */
 export default function RootLayout({
   children,
@@ -123,14 +120,17 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
         <Backdrop />
-        <WindowsProvider>
-          <Sidebar />
-          <main className="relative md:pl-16">
-            <ConsoleSurface />
-            {children}
-          </main>
-          <WindowManager />
-        </WindowsProvider>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-sm focus:text-base-900"
+        >
+          Skip to content
+        </a>
+        <SiteHeader />
+        <main id="main" className="relative">
+          {children}
+        </main>
+        <SiteFooter />
       </body>
     </html>
   );

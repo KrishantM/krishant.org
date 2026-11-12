@@ -1,8 +1,9 @@
 /**
  * Site-wide copy, identity, navigation and links.
  *
- * Change wording here, not inside components. The voice is first-person and
- * warm, like Krishant talking, not a brochure. Keep it tight all the same.
+ * Change wording here, not inside components. The voice is first person and
+ * plain: short sentences, no flourishes, no self-praise, no semicolons, and
+ * as few em dashes as possible (none in anything the assistant says).
  */
 
 export const site = {
@@ -15,7 +16,7 @@ export const site = {
   meta: {
     title: "Krishant Maharaj",
     description:
-      "Krishant Maharaj is an AI engineer and solution architect building Surya, an AI operator that runs the whole business, from Aotearoa New Zealand.",
+      "Krishant Maharaj is an AI engineer and solution architect at PwC. He builds Surya, a family of open tools for working with AI agents, from Aotearoa New Zealand.",
     ogImageAlt: "Krishant Maharaj, krishant.org",
   },
 
@@ -25,46 +26,13 @@ export const site = {
     github: "https://github.com/KrishantM" as string | null,
   },
 
-  /**
-   * The sidebar nav. Each `key` maps to a window in WindowsProvider — these are
-   * NOT routes; the sidebar opens windows in place rather than navigating, so
-   * no item here should carry an href (the old `/ventures`-style routes no
-   * longer exist and would 404). The K monogram at the top of the sidebar is
-   * the home (console) affordance and is rendered separately. `tooltip` is the
-   * short label shown on hover, `description` is a one-line elaboration shown
-   * beneath the title inside each window.
-   */
+  /** In-page anchors. One scrolling page, so every item is a section id. */
   nav: [
-    {
-      key: "ventures",
-      label: "Ventures",
-      tooltip: "Ventures",
-      description: "What I'm building, with Surya in the lead.",
-    },
-    {
-      key: "map",
-      label: "Map",
-      tooltip: "The map",
-      description: "How everything I'm building connects.",
-    },
-    {
-      key: "credentials",
-      label: "Credentials",
-      tooltip: "Credentials",
-      description: "Professional background and certified depth.",
-    },
-    {
-      key: "about",
-      label: "About",
-      tooltip: "About me",
-      description: "Who I am and how I think.",
-    },
-    {
-      key: "connect",
-      label: "Connect",
-      tooltip: "Connect",
-      description: "Say hello, or start a conversation.",
-    },
+    // Rooted at "/" so the header works from the venture pages too.
+    { href: "/#surya", label: "Surya" },
+    { href: "/#how-i-build", label: "How I build" },
+    { href: "/#credentials", label: "Credentials" },
+    { href: "/#connect", label: "Connect" },
   ],
 
   hero: {
@@ -72,78 +40,95 @@ export const site = {
     name: "Krishant Maharaj",
     headline: "I like building stuff.",
     subline:
-      "Right now that's Surya, an AI operator that plans, builds and runs a business with you. By day I'm an AI engineer and solution architect at PwC, building agentic systems and data platforms for large organisations.",
-    /** Copy for the interactive "ask" console in the hero. */
-    console: {
-      placeholder: "Ask me anything about my work...",
+      "By day I'm an AI engineer and solution architect at PwC. The rest of the time I build Surya, open tools for working with AI agents.",
+    primaryCta: { href: "#surya", label: "See what I'm building" },
+  },
+
+  /** The assistant in the hero. Three modes, each with its own copy. */
+  assistant: {
+    label: "Talk to my work",
+    honesty: "An assistant on my site, running on Claude. It only talks about my work.",
+    tabs: {
+      ask: "Ask",
+      gates: "Try Surya Gates",
+      fit: "Fit check",
+    },
+    ask: {
       welcome:
-        "Ask me anything about my background, what I'm building, or how to reach me. Or tap a prompt below.",
+        "Ask about my work, or how one of my open-source tools works. When an answer is about code, it quotes the real source and links to the lines.",
+      placeholder: "Ask about my work or my code...",
       suggestions: [
-        { label: "What are you building?", query: "what are you building" },
-        { label: "Tell me about Surya", query: "tell me about surya" },
-        { label: "Tell me about Gradual", query: "tell me about gradual" },
-        { label: "What do you do at PwC?", query: "what do you do at pwc" },
-        { label: "What's your background?", query: "what is your background" },
-        { label: "How can I reach you?", query: "how can i reach you" },
+        { label: "How does Gates decide what needs a yes?", query: "How does Surya Gates decide which tool calls need a person's approval?" },
+        { label: "How does Project Eval grade?", query: "How does Project Eval grade an agent's work with LangGraph?" },
+        { label: "How does Memory avoid losing edits?", query: "How does Surya Memory make sure no edit is lost?" },
+        { label: "What are you building?", query: "What are you building right now?" },
+        { label: "What do you do at PwC?", query: "What do you do at PwC?" },
+        { label: "How can I reach you?", query: "How can I reach you?" },
       ],
+      codeNote: "Quoted from the public repo",
+    },
+    gates: {
+      intro:
+        "Pick something an agent might try. Each verdict is real output from Surya Gates' classifier, run on its public code.",
+      realOutput: "Real output from Surya Gates",
+      verdicts: {
+        pass: "Carries on",
+        stop: "Waits for a person",
+        refuse: "Refused outright",
+      },
+      trustable: "Can be trusted for a session",
+      neverTrustable: "Always asks, even when you trust a session",
+      passNote: "Nothing consequential, so the agent keeps going.",
+      refuseNote: "No yes would make sense here, so nobody is asked.",
+      phoneNote: "In a real session, the question can reach your phone by ntfy, iMessage, Telegram or SMS.",
+    },
+    fit: {
+      intro:
+        "Paste a job description. I'll map what it asks for to work you can check: repos, products, certifications and my day job.",
+      placeholder: "Paste a job description here...",
+      submit: "Map it to my work",
+      matchesHeading: "Where my work lines up",
+      sourceNote:
+        "The line under each link is from this site, word for word. The assistant only chose which work fits each requirement.",
+      discussHeading: "Happy to go deeper on these in a conversation",
+      discussCta: "Get in touch",
+      minLength: 120,
+      maxLength: 8000,
+      tooShort: "Paste a bit more of the job description so there's something to map.",
+    },
+    errors: {
+      generic: "Something on my side broke for a second. Try again in a moment.",
+      unavailable: "The live assistant isn't available on this deploy. The rest of the page has everything it would tell you.",
     },
   },
 
   sections: {
-    ventures: {
+    surya: {
       eyebrow: "01 · what I'm building",
-      title: "Ventures",
-      lede: "Surya has most of my attention right now. It's an AI operator that plans, builds and runs a business with you. Alongside it I'm building Project Eval, which measures whether AI agents actually help. Gradual was my previous startup, and Hiko came before it. Real products, not slideware.",
+      title: "The Surya family",
     },
-    constellation: {
-      eyebrow: "02 · how it all connects",
-      title: "The map in my head",
-      lede: "Everything I'm building orbits the same centre. Have a play with the map. Hover a node for the gist, open one to go deeper.",
+    howIBuild: {
+      eyebrow: "02 · how I build",
+      title: "How I build",
+      lede: "Claims you can check. Each one links to the code, the certification or the statement behind it.",
+    },
+    dayJob: {
+      eyebrow: "03 · day job",
+      title: "PwC",
     },
     credentials: {
-      eyebrow: "03 · the credibility bit",
+      eyebrow: "04 · certified",
       title: "Credentials",
-      lede: "What sits underneath the ambition: professional experience and certified technical depth. Context, not a CV.",
     },
-    who: {
-      eyebrow: "04 · the person behind it",
-      title: "Who is Krishant?",
+    earlier: {
+      eyebrow: "05 · before Surya",
+      title: "Earlier ventures",
     },
     connect: {
-      eyebrow: "05 · say hello",
+      eyebrow: "06 · say hello",
       title: "Let's talk",
-      lede: "Building something, weighing up a collaboration, or just curious? I'd love to hear from you.",
+      lede: "Building something, hiring, or curious about how any of this works? I'd like to hear from you.",
     },
-  },
-
-  /** A small, easy-to-update snapshot of what has my attention right now. */
-  currently: {
-    label: "Currently",
-    note: "A quick snapshot of what's got my attention right now.",
-    items: [
-      { label: "Building", value: "Surya, an AI operator that runs the whole business" },
-      { label: "Day job", value: "AI engineer and solution architect at PwC" },
-      { label: "Exploring", value: "AI agents that earn the trust to act on your behalf" },
-      { label: "Certified", value: "AWS Solutions Architect and Databricks Platform Architect" },
-      { label: "Based in", value: "Aotearoa New Zealand" },
-    ],
-  },
-
-  /** "Who is Krishant?" copy: concise, warm, first-person. */
-  who: {
-    lead: "I'm drawn to the gap between how things work now and how they'd work if someone rebuilt them properly. Better software, clearer incentives, and the patience to actually ship.",
-    body: [
-      "I build real things. Most of what I make starts with a process that's clearly broken and a stubborn belief it can be done right. Cleaner architecture, AI that earns its place, and something that makes commercial sense.",
-      "By day I'm an AI engineer and solution architect at PwC, building agentic systems and data platforms for large organisations. The rest goes into Surya, which I'm building with my brother, and Project Eval, a platform that measures whether AI agents actually help. Before that came Gradual and Hiko. The throughline is curiosity, taste, and a habit of shipping. I work mostly from Aotearoa New Zealand.",
-    ],
-    principles: [
-      { title: "Build real things", note: "Shipped products beat decks and good intentions." },
-      { title: "Rebuild dated systems", note: "Find the gap, then close it properly." },
-      { title: "AI as leverage", note: "A multiplier on good software, not the whole product." },
-      { title: "Foundations first", note: "Cloud, architecture, and security under the surface." },
-      { title: "Commercial execution", note: "Ideas that stand up in the real world." },
-      { title: "Curiosity and taste", note: "The instinct for what's worth building next." },
-    ],
   },
 
   footer: {

@@ -7,9 +7,11 @@ once, in one place, and rendered everywhere from that single description.
 ## Layers
 
 ```
-types/      →  the shape of the data        (Venture, Certification)
-content/    →  the data itself + copy        (ventures.ts, certifications.ts, site.ts)
-lib/        →  pure helpers                   (cn, accent colour resolution)
+types/      →  the shape of the data        (Venture, Certification, SuryaTool, Proof)
+content/    →  the data itself + copy        (surya.ts, how-i-build.ts, ventures.ts,
+                                              certifications.ts, site.ts, generated JSON)
+lib/        →  pure helpers                   (cn, accents, sanitiser, retrieval, assistant)
+scripts/    →  build-time generators          (code index, Gates demo verdicts)
 components/ →  presentation only             (read from content, render UI)
 app/        →  routing + composition          (layout, homepage, detail pages)
 ```
@@ -25,8 +27,16 @@ A component should never contain venture/certification facts. It receives them
 - **`src/content/certifications.ts`** — the single source of truth for
   certifications, the `skillPillars` array, and the high-level `pwc` copy. Kept
   entirely separate from ventures.
-- **`src/content/site.ts`** — identity, nav, hero copy, section headings,
-  "Who is Krishant?" copy, contact links, footer. All site-wide wording.
+- **`src/content/surya.ts`** — the Surya family: every tool, its tier
+  (`live`, `development`, `next`), repo, points and status. One object per tool.
+- **`src/content/how-i-build.ts`** — "How I build": each claim with its proofs.
+  A code proof names a repo, path and line range; `lib/proof.ts` pins the link
+  to the commit recorded in `code-repos.json`.
+- **`src/content/site.ts`** — identity, nav, hero copy, assistant copy, section
+  headings, contact links, footer. All site-wide wording.
+- **Generated, committed, reviewable JSON** (never edit by hand):
+  `code-index.json` + `code-repos.json` (from `npm run index:code`) and
+  `gates-demo.json` (from `npm run demo:gates`).
 
 To change wording: edit `content/`. To change layout: edit `components/`. These
 two activities should almost never touch the same file.
@@ -58,21 +68,26 @@ The model is named **`Venture`** — never `Project`. Key fields:
 
 ## Component map
 
-- **layout/** — `Header` (scroll-aware + mobile menu), `Footer`, `Section`
-  (shell width, vertical rhythm, eyebrow/title/lede header), `Backdrop` (global
-  grid + glow).
-- **hero/** — `Hero` (server; CSS entrance), `HeroBackground` (CSS-only
-  cinematic layer), `AskConsole` (the interactive AI-style prompt console; the
-  only client island in the hero). Its answers come from `src/lib/assistant.ts`,
-  which maps a query to a curated, data-driven response built from the content
-  files — never hardcoded facts.
-- **ventures/** — `FlagshipVentures` (the Gradual + Hiko feature cards),
-  `VentureConstellation` (interactive map + stacked mobile fallback),
-  `CreatorHQMap`.
-- **about/** — `WhoIsKrishant`, `Currently` (the "right now" snapshot; edit
-  `site.currently`).
-- **credentials/** — `CredentialsSection` composes `PwCBlock` +
-  `CertificationsBlock` + skill pillars.
+One scrolling page, server-rendered. The assistant is the only client island
+of any size.
+
+- **layout/** — `SiteHeader` (fixed; anchor nav, "Ask", theme toggle, mobile
+  disclosure menu), `SiteFooter`, `Section` (shell width, rhythm,
+  eyebrow/title/lede header, optional aside), `Backdrop` (global grid + glow).
+- **hero/** — `Hero` (server; CSS entrance and the sun motif) with the
+  `Assistant` beside it.
+- **assistant/** — `Assistant` (tabs, all modes stay mounted), `AskMode`
+  (answers from the real code, with `CodeCard`s), `GatesDemo` (real Surya
+  Gates verdicts from `gates-demo.json`, no backend), `FitCheck` (job
+  description mapped to evidence), `open.ts` (`openAssistant(tab)` from any
+  button; deep links `/#ask`, `/#try-gates`, `/#fit-check`).
+- **surya/** — `SuryaFamily` (three tiers), `ToolCard`, `SuryaOrbit` (SVG
+  map; node positions are presentation and live in the component),
+  `TryItButton`.
+- **build/** — `HowIBuild` (claims with proof links).
+- **credentials/** — `DayJob` (the approved `pwc.statement`, word for word),
+  `Certifications`.
+- **ventures/** — `EarlierVentures` (Gradual and Hiko, kept small).
 - **contact/** — `ContactCTA`.
 - **ui/** — `Badge`, `Button`, `Card`, `Reveal` (the scroll-reveal primitive),
   `Signature` (hand-drawn logo/mark), `ThemeToggle`. Reuse these rather than
@@ -89,18 +104,17 @@ persists it. **Rule:** components reference tokens, never raw hex — that's wha
 lets a single component render correctly in both themes. Per-venture accent hex
 lives in `src/lib/utils.ts` (`accentHex`) for SVG/inline use.
 
-### A note on the constellation
+### A note on the orbit
 
-`VentureConstellation.tsx` holds a `layout` map of **percentage coordinates** per
-slug and a `connections` list. These are **presentation concerns** and live in
-the component on purpose — they are not part of the `Venture` data model. When you
-add a venture that should appear on the map, add a coordinate entry (and a
-connection) here.
+`SuryaOrbit.tsx` holds an angle per tool slug and a short label. These are
+**presentation concerns** and live in the component on purpose, not in
+`surya.ts`. A new tool needs an entry there to appear on the orbit.
 
 ## Routing & composition
 
 - **`app/layout.tsx`** — root HTML, fonts (`next/font`), global metadata + Open
-  Graph, and the persistent chrome (`Backdrop`, `Header`, `Footer`).
+  Graph, the no-flash theme bootstrap, and the chrome (`Backdrop`,
+  `SiteHeader`, `SiteFooter`).
 - **`app/page.tsx`** — the homepage. It only *composes* sections; it owns no
   content beyond pulling from `content/`.
 - **`app/ventures/[slug]/page.tsx`** — statically generated from
@@ -119,6 +133,58 @@ connection) here.
 - **Add a new venture/cert:** append one object to the relevant content file
   (see README for the full template).
 
+## The assistant (`/api/ask`)
+
+Two model-backed modes behind one route, plus one with no backend.
+
+- **Ask** retrieves up to six excerpts from `code-index.json` (BM25,
+  `lib/retrieval.ts`, server only) and labels them E1..En. The model answers
+  and cites labels; the server turns labels into code cards and links, so the
+  model never writes a URL. Only labels that were retrieved survive.
+- **Fit check** sends the pasted job description inside `<job_description>`
+  tags as untrusted data, with an evidence catalogue (`lib/evidence.ts`). The
+  model only chooses: a short label for each requirement and the evidence ids
+  that answer it. It writes nothing about the evidence. The line shown under
+  each evidence link is that item's own `text` from the content files (a
+  tool's `line`, a "How I build" claim, the work sentence of the PwC
+  statement, a cert's provider and code, a venture's summary). Labels that
+  describe Krishant instead of the job are dropped. The server drops unknown
+  ids and moves unsupported requirements to "Happy to go deeper on these in a
+  conversation". There is no gaps list, and gap or weakness wording is removed.
+- **Try Surya Gates** reads `gates-demo.json`: real `classify()` output,
+  pinned to a commit. `python3 -I scripts/build-gates-demo.py --check`
+  re-runs it and the unit tests call that.
+- Every string sent back passes through `lib/sanitise.ts`, and links to any
+  of his repos off the allowlist are removed. Model: `claude-sonnet-5-5`
+  (`DEFAULT_ASSISTANT_MODEL` in `lib/llm-context.ts`; a public assistant on
+  his own key, so cost matters) with server-side fallbacks, overridable by
+  `ASSISTANT_MODEL`. Rate limited per IP. Returns 503 without a key.
+
+### The code index
+
+`npm run index:code` reads only the allowlist in `lib/code-index/policy.ts`
+(surya-memory, surya-gates, surya-voice, surya-distro, project-eval), checks
+each repo is public through the unauthenticated GitHub API (a private repo is
+a 404 and is refused), indexes the README plus main source and infrastructure
+files (no tests, fixtures, lockfiles, env files or binaries), drops any file
+that trips a secret pattern, redacts personal details, removes links to any
+of his repos that aren't on the allowlist (they may be private), and writes
+excerpts of at most 25 lines with links pinned to the commit.
+`npm run index:code -- --only surya-distro` re-indexes just that repo and
+keeps the others exactly as they are. Commit the JSON so the
+change is reviewable. Re-running moves the pinned commits, so re-check the
+line ranges in `how-i-build.ts` afterwards (`npm run test:unit` checks they
+resolve).
+
+## Tests
+
+- `npm run test:unit` (vitest): sanitiser, allowlist and file policy, index
+  integrity, retrieval, Gates demo data, fit and ask normalisers, content rules.
+- `npm run test:e2e` (Playwright): server-rendered sections, nav, theme,
+  mobile widths, all three assistant modes with mocked `/api/ask`. Set
+  `E2E_LIVE_ASSISTANT=1` for one real model call. `PLAYWRIGHT_BASE_URL` plus
+  `VERCEL_AUTOMATION_BYPASS_SECRET` runs it against a protected preview.
+
 ## Rules for staying modular
 
 1. Never hardcode venture or certification facts inside a component.
@@ -131,6 +197,10 @@ connection) here.
 ---
 
 ## Performance baseline (task #1 — 2026-06-05)
+
+> Historical. This predates the November 2026 overhaul, which removed the
+> window manager, sidebar, panels and the lion assistant mark. After the
+> overhaul the home page is 8.8 kB with 105 kB first-load JS.
 
 Measured on Next.js 14.2.35 production build. No Lighthouse / CWV run yet
 (requires a deployed URL or a local perf tool pass); numbers below are from the

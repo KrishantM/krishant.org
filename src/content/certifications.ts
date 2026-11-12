@@ -9,6 +9,14 @@ import type { Certification } from "@/types/certification";
  */
 export const certifications: Certification[] = [
   {
+    name: "Claude Certified Architect – Professional",
+    provider: "Anthropic",
+    code: "CCAR-P",
+    status: "Active",
+    category: "AI Architecture",
+    credentialUrl: null,
+  },
+  {
     name: "AWS Certified Solutions Architect – Associate",
     provider: "Amazon Web Services",
     code: "SAA-C03",

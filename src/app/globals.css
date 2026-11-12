@@ -39,6 +39,8 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* Anchored sections clear the sticky header. */
+    scroll-padding-top: 5rem;
   }
 
   body {
@@ -72,12 +74,6 @@
 }
 
 @layer components {
-  /* Lion mark beside assistant messages. White on dark; CSS filter inverts to
-     black on light — single next/image-optimised asset serves both themes. */
-  [data-theme="light"] .assistant-mark {
-    filter: invert(1);
-  }
-
   /* Theme-toggle icon swap, driven by the data-theme attribute (robust and
      independent of the Tailwind dark: variant). Dark theme shows the moon. */
   .theme-icon-sun {
@@ -120,106 +116,104 @@
     }
   }
 
-  /* Sidebar icons — characterful per-icon hover motion. Each animated piece
-     inside an SVG is tagged with data-anim="..."; the trigger lives on the
-     parent .icon-trigger. Keeping the animations centralised here makes the
-     icon components themselves pure structure. */
-  .icon-trigger [data-anim] {
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    transform-origin: center;
-    transform-box: fill-box;
+  /* ---- The sun (Surya) motif ------------------------------------------ */
+  /* A warm core with a slow ring of rays. Pure CSS, tokens only. */
+  .sun-core {
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgb(var(--accent-2) / 0.55),
+      rgb(var(--accent) / 0.28) 32%,
+      rgb(var(--accent) / 0.08) 58%,
+      transparent 72%
+    );
   }
-  .icon-trigger:hover [data-anim="venture-top"] {
-    transform: translateY(-3px);
+  .sun-rays {
+    background: repeating-conic-gradient(
+      from 0deg,
+      rgb(var(--accent) / 0.16) 0deg 2deg,
+      transparent 2deg 12deg
+    );
+    -webkit-mask-image: radial-gradient(circle, transparent 30%, black 42%, transparent 70%);
+    mask-image: radial-gradient(circle, transparent 30%, black 42%, transparent 70%);
+    animation: sun-turn 120s linear infinite;
   }
-  .icon-trigger:hover [data-anim="venture-mid"] {
-    transform: translateY(-1.5px);
-  }
-  .icon-trigger [data-anim="map-orbit"] {
-    transform-origin: 12px 12px;
-    transform-box: view-box;
-    transition: transform 0.7s cubic-bezier(0.4, 1, 0.4, 1);
-  }
-  .icon-trigger:hover [data-anim="map-orbit"] {
-    transform: rotate(120deg);
-  }
-  /* Credentials — celebration: medal pops + tiny confetti burst radiates out.
-     Each confetti circle reads its own --dx / --dy from inline style. */
-  .icon-trigger [data-anim="medal"] {
-    transform-origin: 12px 10px;
-    transform-box: view-box;
-  }
-  .icon-trigger:hover [data-anim="medal"] {
-    animation: medal-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  @keyframes medal-pop {
-    0% {
-      transform: scale(1) rotate(0deg);
-    }
-    35% {
-      transform: scale(1.18) rotate(8deg);
-    }
-    70% {
-      transform: scale(0.96) rotate(-4deg);
-    }
-    100% {
-      transform: scale(1) rotate(0deg);
-    }
-  }
-  .icon-trigger [data-anim="confetti"] {
-    transform-origin: center;
-    transform-box: fill-box;
-    opacity: 0;
-  }
-  .icon-trigger:hover [data-anim="confetti"] {
-    animation: confetti-fly 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-    animation-delay: var(--delay, 0s);
-  }
-  @keyframes confetti-fly {
-    0% {
-      transform: translate(0, 0) scale(0.4);
-      opacity: 0;
-    }
-    20% {
-      opacity: 1;
-    }
-    100% {
-      transform: translate(var(--dx, 0), var(--dy, 0)) scale(1);
-      opacity: 0;
+  @keyframes sun-turn {
+    to {
+      transform: rotate(360deg);
     }
   }
 
-  /* About — neutral cartoon mouth animates into a smile on hover. */
-  .icon-trigger [data-anim="smile"] {
-    transition: d 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Orbit rings in the Surya family diagram: dashes drift slowly. */
+  .orbit-drift {
+    stroke-dasharray: 2 10;
+    animation: dashmove 6s linear infinite;
   }
-  .icon-trigger:hover [data-anim="smile"] {
-    d: path("M9 14.4 Q 12 17 15 14.4");
+  .orbit-drift-slow {
+    stroke-dasharray: 1 14;
+    animation: dashmove 14s linear infinite reverse;
   }
-
-  /* Connect — paper plane flies a small arc and loops back to origin. */
-  .icon-trigger [data-anim="plane"] {
-    transform-origin: 12px 12px;
-    transform-box: view-box;
+  .node-pulse {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: node-pulse 4.5s ease-in-out infinite;
   }
-  .icon-trigger:hover [data-anim="plane"] {
-    animation: plane-flight 0.95s cubic-bezier(0.45, 0.05, 0.45, 1);
-  }
-  @keyframes plane-flight {
-    0% {
-      transform: translate(0, 0) rotate(0deg);
-    }
-    25% {
-      transform: translate(7px, -5px) rotate(18deg);
+  @keyframes node-pulse {
+    0%,
+    100% {
+      opacity: 0.35;
+      transform: scale(1);
     }
     50% {
-      transform: translate(12px, -10px) rotate(42deg);
+      opacity: 0.8;
+      transform: scale(1.35);
     }
-    75% {
-      transform: translate(2px, -7px) rotate(-6deg);
+  }
+
+  /* Code excerpt cards: a line-number gutter that never wraps. */
+  .code-lines {
+    counter-reset: line var(--start, 0);
+  }
+  .code-lines > span {
+    display: block;
+    white-space: pre;
+    min-height: 1.5em;
+  }
+  .code-lines > span::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 2.75em;
+    margin-right: 1em;
+    padding-right: 0.75em;
+    text-align: right;
+    color: rgb(var(--ink-faint) / 0.8);
+    border-right: 1px solid rgb(var(--line) / 0.14);
+    user-select: none;
+  }
+
+  /* Thin, theme-aware scrollbars inside panels. */
+  .thin-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--ink) / 0.2) transparent;
+  }
+
+  /* Loading shimmer for the fit check. */
+  .shimmer-line {
+    background: linear-gradient(
+      90deg,
+      rgb(var(--surface) / 0.04) 0%,
+      rgb(var(--surface) / 0.12) 50%,
+      rgb(var(--surface) / 0.04) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s linear infinite;
+  }
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
     }
     100% {
-      transform: translate(0, 0) rotate(0deg);
+      background-position: -200% 0;
     }
   }
 
@@ -254,6 +248,13 @@
   /* Make sure draw-on strokes are fully visible, not stuck mid-draw. */
   .draw-on {
     stroke-dashoffset: 0 !important;
+  }
+  .sun-rays,
+  .orbit-drift,
+  .orbit-drift-slow,
+  .node-pulse,
+  .shimmer-line {
+    animation: none !important;
   }
   /* Reveal targets snap straight to their visible state. */
   .js .reveal {

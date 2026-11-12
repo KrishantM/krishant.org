@@ -7,9 +7,9 @@ import type { Venture } from "@/types/venture";
  * constellation and the detail pages) reads from here.
  * Never hardcode venture content into components.
  *
- * Emphasis: Surya leads, then Project Eval (building now), then Gradual
- * (previous startup), then Hiko (an earlier build). The first featured entry gets
- * the lead card. `parent` is still supported for sub-brands if one is added.
+ * Emphasis: Surya leads, then Project Eval, then Gradual (previous startup),
+ * then Hiko (an earlier build). The individual Surya tools live in
+ * src/content/surya.ts. `parent` is still supported for sub-brands.
  */
 export const ventures: Venture[] = [
   {
@@ -17,20 +17,20 @@ export const ventures: Venture[] = [
     slug: "surya",
     url: "https://trysurya.com",
     externalUrl: "https://trysurya.com",
-    category: "AI Operator / Autonomous Business Operations",
+    category: "Open tools for AI agents",
     status: "Active",
-    summary: "An app isn't a business. Surya runs the whole thing.",
+    summary: "Open tools for working with AI agents, and the app that brings them together.",
     description:
-      "Surya is an AI operator for people building without a technical team. It sets the strategy, builds the product, and runs the operations around it, with you approving anything that actually matters. The loop between strategising and building is the point: context compounds across domains instead of being stranded in separate tools.",
+      "Surya started as one AI operator. It is now a family of open tools for working with AI agents, and Surya Unite, the paid app that brings them together. Unite is in development and its source is private.",
     role: "Co-founder / CEO",
     focusAreas: [
-      "AI agents",
-      "Autonomous operations",
-      "Governed execution",
-      "Product strategy",
-      "Security-first architecture",
+      "Approval gates for agents",
+      "Shared agent memory",
+      "Voice control of coding agents",
+      "Evidence-led launches",
+      "Agent evaluation",
     ],
-    tags: ["AI", "Agents", "Startups", "Operations"],
+    tags: ["AI", "Agents", "Open source", "Developer tools"],
     accent: "amber",
     featured: true,
     parent: null,
@@ -39,22 +39,22 @@ export const ventures: Venture[] = [
   {
     name: "Project Eval",
     slug: "project-eval",
-    url: null,
-    externalUrl: null,
+    url: "https://krishantm.github.io/project-eval",
+    externalUrl: "https://krishantm.github.io/project-eval",
     category: "AI / Agent Evaluation",
-    status: "Building",
-    summary: "Does your AI agent actually help? Project Eval measures it.",
+    status: "Active",
+    summary: "Measures what AI agents actually deliver.",
     description:
-      "Project Eval is a self-hosted platform that evaluates AI agents and measures their impact. It tracks what people actually do with an agent's output, grades quality with an LLM judge calibrated against human review, and compares the same work with and without AI. It's built on LangChain and LangGraph, with a containerised Kubernetes infrastructure so it can run inside a company's own environment.",
+      "Project Eval measures tasks done, time spent, cost, how often an agent's work is kept, and quality from an LLM judge that is checked against people. It runs in the browser, on Docker, or on Kubernetes with Helm. Grading runs in LangGraph with a Postgres checkpointer. It is open source.",
     role: "Founder / Builder",
     focusAreas: [
       "Agent evaluation",
       "LLM-judge grading",
       "Human-in-the-loop calibration",
       "LangChain and LangGraph",
-      "Kubernetes",
+      "Docker, Helm and KEDA",
     ],
-    tags: ["AI", "Agents", "Evaluation", "Infrastructure"],
+    tags: ["AI", "Agents", "Evaluation", "Open source"],
     accent: "gold",
     featured: true,
     parent: null,
@@ -113,8 +113,11 @@ export const ventures: Venture[] = [
 /* Derived helpers. Keep selection logic out of components.            */
 /* ------------------------------------------------------------------ */
 
-/** Featured ventures (Surya, Project Eval, Gradual, Hiko) that lead the Ventures section. */
+/** Featured ventures (Surya, Project Eval, Gradual, Hiko). */
 export const featuredVentures = ventures.filter((v) => v.featured);
+
+/** Earlier ventures, shown small beneath the current work. */
+export const earlierVentures = ventures.filter((v) => v.status === "Previous");
 
 /** Top-level ventures (no parent). */
 export const topLevelVentures = ventures.filter((v) => v.parent === null);
