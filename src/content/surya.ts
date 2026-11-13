@@ -43,7 +43,7 @@ export const suryaTools: SuryaTool[] = [
       "Reading files and running tests carry on. A deploy, a push, a delete or a sent message waits for a person, who can approve from their phone by ntfy, iMessage, Telegram or SMS.",
     points: [
       "Works with Claude Code, Codex and apps on Claude or GPT",
-      "212 tests",
+      "215 tests",
       "Fails closed: if the gate errors, the call is blocked",
     ],
     repo: "surya-gates",
